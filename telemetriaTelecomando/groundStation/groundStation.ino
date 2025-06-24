@@ -26,10 +26,10 @@ void setup() {
   // substituir os pinos CS, reset e IRQ padrão (opcional)
   LoRa.setPins(LORA_PIN_NSS, LORA_PIN_RESET, LORA_PIN_IRQ);// set CS, reset, IRQ pin
 
-  //if (!LoRa.begin(433E6)) {             // Inicialia o radio em 433mhz
-   // Serial.println("Falha na inicialização do LoRa. Verifique suas conexões.");
-    //while (true);                       // se falhar, não faz nada
-  //}
+  if (!LoRa.begin(433E6)) {             // Inicialia o radio em 433mhz
+   Serial.println("Falha na inicialização do LoRa. Verifique suas conexões.");
+    while (true);                       // se falhar, não faz nada
+  }
   Serial.println("Dispositivo iniciado com sucesso.");
   Menu();  // Mostra o menu logo no início
 
