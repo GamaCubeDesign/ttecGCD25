@@ -57,7 +57,7 @@ void loop() {
       Serial.println("Pacote inválido (sem cabeçalho)");
     }
 
-    //Serial.print("RSSI: ");
-    //Serial.println(LoRa.packetRssi());
+    Serial.print("RSSI: ");
+    Serial.println(LoRa.packetRssi()); //RSSI mede a intensidade do sinal, isso vai nos ajudar a analisar a qualidade do sinal que estamos enviando.
   }
 }
