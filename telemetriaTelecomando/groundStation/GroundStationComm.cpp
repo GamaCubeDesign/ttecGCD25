@@ -10,7 +10,7 @@ void iniciarComunicacaoComSatelite() {
   LoRa.print(pacote);
   LoRa.endPacket();
 
-unsigned long tempoInicio = millis();
+  unsigned long tempoInicio = millis();
   while (millis() - tempoInicio < 5000) {
     int packetSize = LoRa.parsePacket();
     if (packetSize) {
@@ -19,7 +19,7 @@ unsigned long tempoInicio = millis();
         resposta += (char)LoRa.read();
       }
 
-      if (resposta == "GAMASAT:Olá, groundStation") {
+      if (resposta.equals("GAMASAT:Olá, groundStation")) {
         Serial.println("GamaSat respondeu corretamente!");
       } else {
         Serial.print("Resposta inesperada: ");
