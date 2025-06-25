@@ -20,14 +20,15 @@ void iniciarComunicacaoComSatelite() {
       }
 
       if (resposta.equals("GAMASAT:Olá, groundStation")) {
-        Serial.println("GamaSat respondeu corretamente!");
+        Serial.println("GAMASAT: Olá, groundStation!");
       } else {
         Serial.print("Resposta inesperada: ");
         Serial.println(resposta);
       }
       return;
     }
+    
   }
 
-  Serial.println("Erro: GamaSat não respondeu dentro do tempo.");
+  Serial.println("ERRO: GamaSat não respondeu dentro do tempo.");
 }
