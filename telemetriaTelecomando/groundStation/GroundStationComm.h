@@ -4,7 +4,7 @@
 #include <SPI.h>              
 #include <LoRa.h>
 
-
+uint8_t calculaCheck();
 void iniciarComunicacaoComSatelite();
 
 
