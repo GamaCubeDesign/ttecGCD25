@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "GamaSatComm.h"
 
-
+//Falta inverter esses endereços.
 uint8_t txAddH = 0x01;
 uint8_t txAddL = 0x10;
 uint8_t rxAddH = 0x02;
