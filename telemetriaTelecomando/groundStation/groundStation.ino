@@ -2,7 +2,6 @@
 #include <LoRa.h>
 #include "GroundStationComm.h"
 
-
 #define LORA_PIN_SCK       5    // Clock SPI do LoRa
 #define LORA_PIN_MISO     19    // MISO (Master In Slave Out)
 #define LORA_PIN_MOSI     27    // MOSI (Master Out Slave In)
@@ -31,8 +30,7 @@ void setup() {
     while (true);                       // se falhar, não faz nada
   }
   Serial.println("Dispositivo iniciado com sucesso.");
-  Menu();  // Mostra o menu logo no início
-
+  Menu();  
 }
 
 
@@ -62,6 +60,6 @@ void loop() {
         Serial.println("Opção inválida.");
         break;
     }
-    Menu();  // Mostra o menu novamente
+    Menu(); 
   }
 }
