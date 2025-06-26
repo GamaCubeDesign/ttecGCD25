@@ -1,11 +1,10 @@
 #include "Arduino.h"
 #include "GamaSatComm.h"
 
-//Falta inverter esses endereços.
-uint8_t txAddH = 0x01;
-uint8_t txAddL = 0x10;
-uint8_t rxAddH = 0x02;
-uint8_t rxAddL = 0x20;
+uint8_t rxAddH = 0x01;
+uint8_t rxAddL = 0x10;
+uint8_t txAddH = 0x02;
+uint8_t txAddL = 0x20;
 
 
 void iniciarComunicacaoComGroundStation() {
@@ -38,7 +37,7 @@ void iniciarComunicacaoComGroundStation() {
 
   display.clearDisplay();
   display.setCursor(0, 0); 
-  display.println("Pacote de resposta enviado:")
+  display.println("Pacote de resposta enviado:");
   display.print("Pacote completo: ");
   display.print(length + 6);
   display.println(" bytes");

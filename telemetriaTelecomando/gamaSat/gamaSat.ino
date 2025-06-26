@@ -132,6 +132,10 @@ void loop() {
     display.print(mensagem);
     display.display();
   }
+
+   if (strcmp(mensagem, "GSGAMA:Olá, GamaSat") == 0) {
+    iniciarComunicacaoComGroundStation();
+  }
   
   }
 
