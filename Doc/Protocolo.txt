@@ -1,0 +1,11 @@
+A comunicação é baseada em endereços, tanto a GroundStation como o Sat recebem endereços.
+
+GroundStation: 
+    - H = 0x01;
+    - L = 0x10;
+
+Sat:
+    - H = 0x02;
+    - L = 0x20;
+
+    

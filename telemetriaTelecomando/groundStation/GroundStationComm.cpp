@@ -6,9 +6,6 @@ uint8_t txAddL = 0x10;
 uint8_t rxAddH = 0x02;
 uint8_t rxAddL = 0x20;
 
-#define rxHSAT 0x01
-#define rxLSAT 0x10
-
 uint8_t calculaCheck(const uint8_t* dados, uint8_t tamanho) {
   uint8_t soma = 0;
   for (uint8_t i = 0; i < tamanho; i++) {
@@ -16,6 +13,36 @@ uint8_t calculaCheck(const uint8_t* dados, uint8_t tamanho) {
   }
   return soma;
 }
+
+
+bool enviarPacote(String payload) {
+  uint8_t length = payload.length();
+  const char* buffer = payload.c_str();
+
+  uint8_t check = calculaCheck((const uint8_t*)buffer, length);
+
+  LoRa.beginPacket();
+  LoRa.write(txAddH);
+  LoRa.write(txAddL);
+  LoRa.write(rxAddH);
+  LoRa.write(rxAddL);
+  LoRa.write(length);
+  LoRa.write((const uint8_t*)buffer, length);
+  LoRa.write(check);
+  LoRa.endPacket();
+
+  Serial.println("Pacote enviado:");
+  Serial.print("Payload: ");
+  Serial.println(payload);
+  Serial.print("Checksum: ");
+  Serial.println(check);
+  Serial.print("Pacote total: ");
+  Serial.print(length + 6); 
+  Serial.println(" bytes");
+
+  return true;
+}
+
 
 bool receberPacote(char *mensagem){
   int packetSize = LoRa.parsePacket();
@@ -29,8 +56,8 @@ bool receberPacote(char *mensagem){
     uint8_t rxL = LoRa.read();
     uint8_t length = LoRa.read();
 
-  if (rxH != rxHSAT || rxL != rxLSAT) {
-      Serial.println("Pacote não foi destinado para o Gama Sat");
+  if (rxH != 0x01 || rxL != 0x10) {
+      Serial.println("Pacote não foi destinado para a GroundStation Gama");
       while (LoRa.available()) LoRa.read();
       return false;
     }
@@ -75,29 +102,8 @@ void iniciarComunicacaoComSatelite() {
   String remetente = "GSGAMA";
   String mensagem = "Olá, GamaSat";
   String payload = remetente + ":" + mensagem;
-
-  uint8_t length  = payload.length();
-  const char* buffer = payload.c_str(); // ponteiro para os bytes da String
-
-  uint8_t check = calculaCheck((const uint8_t*)buffer, length);
   
-  LoRa.beginPacket();
-  LoRa.write(txAddH);
-  LoRa.write(txAddL);
-  LoRa.write(rxAddH);
-  LoRa.write(rxAddL);
-  LoRa.write(length);
-  LoRa.write((const uint8_t*)buffer, length);
-  LoRa.write(check);
-  LoRa.endPacket();
-
-  Serial.print("Pacote enviado de ");
-  Serial.print(length + 6);
-  Serial.print(" bytes\n");
-  Serial.print("Payload enviado de ");
-  Serial.print(length);
-  Serial.print(" bytes\n");
-
+  enviarPacote(payload);
 
   unsigned long tempoInicio = millis();
   while (millis() - tempoInicio < 5000) {
