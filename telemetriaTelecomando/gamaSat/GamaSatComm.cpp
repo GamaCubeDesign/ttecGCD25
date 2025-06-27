@@ -1,10 +1,24 @@
 #include "Arduino.h"
 #include "GamaSatComm.h"
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+
+extern Adafruit_SSD1306 display;
 
 uint8_t rxAddH = 0x01;
 uint8_t rxAddL = 0x10;
 uint8_t txAddH = 0x02;
 uint8_t txAddL = 0x20;
+
+uint8_t calculaCheck(const uint8_t* dados, uint8_t tamanho) {
+  uint8_t soma = 0;
+  for (uint8_t i = 0; i < tamanho; i++) {
+    soma += dados[i];
+  }
+  return soma;
+}
 
 
 void iniciarComunicacaoComGroundStation() {

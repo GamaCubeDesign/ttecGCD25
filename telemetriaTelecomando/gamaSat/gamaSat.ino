@@ -9,12 +9,12 @@
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 
-#define LORA_PIN_SCK       5    // Clock SPI do LoRa
+#define LORA_PIN_SCK      18     // Clock SPI do LoRa
 #define LORA_PIN_MISO     19    // MISO (Master In Slave Out)
-#define LORA_PIN_MOSI     27    // MOSI (Master Out Slave In)
-#define LORA_PIN_NSS      18    // Chip Select (às vezes chamado CS ou SS)
+#define LORA_PIN_MOSI     23    // MOSI (Master Out Slave In)
+#define LORA_PIN_NSS      5    // Chip Select (às vezes chamado CS ou SS)
 #define LORA_PIN_RESET    14    // Pino de reset do módulo LoRa
-#define LORA_PIN_IRQ      26    // Pino de interrupção DIO0 (recepção de pacotes)
+#define LORA_PIN_IRQ      26    // Pino de interrupção DIO0 (recepção de pacotes))
 
 #define rxHSAT  0x02
 #define rxLSAT  0x20
@@ -37,7 +37,8 @@ void setup() {
   display.println("** Testando o sistema de comunicacao do Gama Sat com a  Estacao Terrestre com o modulo RF LoRa Ra-01");
   display.display();
   
-  
+  SPI.begin(LORA_PIN_SCK, LORA_PIN_MISO, LORA_PIN_MOSI, LORA_PIN_NSS);
+
   LoRa.setPins(LORA_PIN_NSS, LORA_PIN_RESET, LORA_PIN_IRQ);
 
   if (!LoRa.begin(433E6)) {             
@@ -57,6 +58,8 @@ void setup() {
 
 void loop() {
   int packetSize = LoRa.parsePacket();
+  char mensagem[256]; 
+
   if (packetSize) {
     Serial.print("Recebendo e lendo pacote loRa");
     display.clearDisplay();
@@ -86,8 +89,6 @@ void loop() {
     while (LoRa.available()) LoRa.read();
     return;
   }
-
-  char mensagem[256]; 
   
   uint8_t checksum = 0;
 
@@ -119,7 +120,7 @@ void loop() {
 
     display.clearDisplay();
     display.setCursor(0, 0); 
-    displau.println("Pacote recebido com sucesso:")
+    display.println("Pacote recebido com sucesso:");
     display.print("packetsize: ");
     display.print(packetSize);
     display.println(" bytes");

@@ -109,8 +109,5 @@ void iniciarComunicacaoComSatelite() {
     }
   }
 
-
-
-
   Serial.println("\nERRO: GamaSat não respondeu dentro do tempo de 5 segundos.");
 }
