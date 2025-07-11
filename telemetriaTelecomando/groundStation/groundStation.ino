@@ -9,27 +9,20 @@
 #define LORA_PIN_RESET    14    // Pino de reset do módulo LoRa
 #define LORA_PIN_IRQ      26    // Pino de interrupção DIO0 (recepção de pacotes)
 
-void Menu() {
-  Serial.println("\nDigite uma das opções:");
-  Serial.println("1 - Teste de comunicação Ground Station -> GamaSat | GamaSat -> GroundStation");
-  Serial.println("2 - opcao");
-  Serial.println("3 - opcao");
-}
-
 void setup() {
   Serial.begin(115200);
-  while (!Serial);  // Aguarda o usuário abrir o Monitor Serial
+  while (!Serial);  
 
   Serial.println("Testando o sistema de comunicação da Estação Terrestre Gama com o módulo RF LoRa Ra-01");
 
   SPI.begin(LORA_PIN_SCK, LORA_PIN_MISO, LORA_PIN_MOSI, LORA_PIN_NSS);
 
   // substituir os pinos CS, reset e IRQ padrão (opcional)
-  LoRa.setPins(LORA_PIN_NSS, LORA_PIN_RESET, LORA_PIN_IRQ);// set CS, reset, IRQ pin
+  LoRa.setPins(LORA_PIN_NSS, LORA_PIN_RESET, LORA_PIN_IRQ); // set CS, reset, IRQ pin
 
-  if (!LoRa.begin(433E6)) {             // Inicialia o radio em 433mhz
+  if (!LoRa.begin(433E6)) {
     Serial.println("Falha na inicialização do LoRa. Verifique suas conexões.");
-    while (true);                       // se falhar, não faz nada
+    while (true);                       
   }
 
   Serial.println("Dispositivo iniciado com sucesso.");
@@ -40,29 +33,21 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {
-    delay(200);
-    char opcao = Serial.read();
-    while (Serial.available()) Serial.read();
+    String comand = Serial.readStringUntil('\n');
+    comand.trim();
 
-
-    switch (opcao) {
-      case '1':
-        Serial.println("Esp32 leu o numero 1 do monitor serial!");
-        iniciarComunicacaoComSatelite();
-        break;
-
-      case '2':
-        //chama função de alguma biblioteca.
-        break;
-
-      case '3':
-        //chama função de alguma biblioteca.
-        break;
-
-      default:
-        Serial.println("Opção inválida.");
-        break;
+    if (comand == "initcomm") {
+      iniciarComunicacaoComSatelite();
     }
-    Menu(); 
+    else if (comand == "") {
+  
+    }
+    else if (comand == "") {
+      
+    }
+    else {
+      Serial.println("ERROR 301");
+    }
   }
 }
+
