@@ -1,4 +1,1 @@
-PySide6
-PySide6-WebEngine
-folium
-pyais
+PySide6>=6.5
