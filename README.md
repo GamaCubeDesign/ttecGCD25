@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="[https://github.com/Joaquim-SNeto/testettec/blob/fa32b645c40bf5b68d14d0c440101546cc3139e9/gama%20logo.png](https://github.com/GamaCubeDesign/ttecGCD25/blob/main/interface/resources/gamaY.png)" alt="image alt" width="50%">
+  <img src="https://github.com/GamaCubeDesign/ttecGCD25/blob/main/interface/resources/gamaY.png?raw=true" alt="image alt" width="50%">
 </p>
 
 
