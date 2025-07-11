@@ -30,15 +30,25 @@ bool enviarPacote(String payload) {
   LoRa.write((const uint8_t*)buffer, length);
   LoRa.write(check);
   LoRa.endPacket();
-
-  Serial.println("Pacote enviado:");
+  Serial.println(" ");
+  Serial.println("#");
+  Serial.println("Package sent:");
+  Serial.print("txAddH: ");
+  Serial.println(txAddH);
+  Serial.print("txAddL: ");
+  Serial.println(txAddL);
   Serial.print("Payload: ");
   Serial.println(payload);
+  Serial.print("Payload size: ");
+  Serial.print(length);
+  Serial.println(" bytes");
   Serial.print("Checksum: ");
   Serial.println(check);
-  Serial.print("Pacote total: ");
+  Serial.print("total package size: ");
   Serial.print(length + 6); 
   Serial.println(" bytes");
+  Serial.println("#");
+  Serial.println(" ");
 
   return true;
 }
@@ -105,6 +115,8 @@ void iniciarComunicacaoComSatelite() {
   
   enviarPacote(payload);
 
+  Serial.println("waiting");
+
   unsigned long tempoInicio = millis();
   while (millis() - tempoInicio < 5000) {
     if (receberPacote(mensagemRecebida)) {
@@ -115,5 +127,5 @@ void iniciarComunicacaoComSatelite() {
     }
   }
 
-  Serial.println("\nERRO: GamaSat não respondeu dentro do tempo de 5 segundos.");
+  Serial.println("\nERROR 505");
 }
