@@ -1,6 +1,8 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
+from actions.healthdata import health
+
 import os
 
 class MainWindow(QMainWindow):
@@ -35,3 +37,10 @@ class MainWindow(QMainWindow):
         label_icone.setScaledContents(True)
         label_icone.resize(80, 80)
         label_icone.move(20, 20)  
+
+        botao = QPushButton("Health data", self)
+        botao.setGeometry(100, 100, 150, 40)
+        botao.clicked.connect(health)
+
+
+    
