@@ -41,6 +41,7 @@ void loop() {
     }
     else if (comand == "hdata") {
       Serial.println("requested health data");
+      hdata();
     }
     else if (comand == "") {
       

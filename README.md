@@ -9,7 +9,7 @@ Uma parte desse projeto tem como objetivo decodificar mensagens AIS (Automatic I
 
 Outra parte é destinada ao sistema de telemetria e telecomando.
 
-O diretório "Doc" contém a documentação do projeto:
+O diretório "Docs" contém a documentação do projeto:
 - O diretório "AISDoc" contém a documentação sobre o sistema AIS.
 - O diretório "groundStationDoc" contém a documentação referente ao sistema de telemetria e telecomando da GroundStation.
 - O diretório "gamaSatDoc" contém a documentação referente ao sistema de telemetria e telecomando do Cubesat.
@@ -54,7 +54,6 @@ O sistema também conta com criptografia, ... (Ainda em pesquisa!).
     - Comunicação em 30 metros (minimo).
     - Escutar a groundstation a cada estante.
     - O sistema deve ser integrado com o sensoriamento remoto.
-    - 
 
 ## Organização:
 
