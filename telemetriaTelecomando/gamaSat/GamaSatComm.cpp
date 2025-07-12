@@ -23,7 +23,7 @@ uint8_t calculaCheck(const uint8_t* dados, uint8_t tamanho) {
 
 void iniciarComunicacaoComGroundStation() {
   String remetente = "GAMASAT";
-  String mensagem = "Olá, groundStation";
+  String mensagem = "hi, groundStation";
   String payload = remetente + ":" + mensagem;
 
   uint8_t length  = payload.length();

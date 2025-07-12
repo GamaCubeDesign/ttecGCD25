@@ -108,20 +108,20 @@ bool receberPacote(char *mensagem){
     return true;
 }
 
-void iniciarComunicacaoComSatelite() {
+void initcomm() {
   char mensagemRecebida[256];
   String remetente = "GSGAMA";
-  String mensagem = "Olá, GamaSat";
+  String mensagem = "hi, GamaSat";
   String payload = remetente + ":" + mensagem;
   
   enviarPacote(payload);
 
-  Serial.println("waiting");
+  Serial.println("waiting...");
 
   unsigned long tempoInicio = millis();
   while (millis() - tempoInicio < 5000) {
     if (receberPacote(mensagemRecebida)) {
-      if (strcmp(mensagemRecebida, "GAMASAT:Olá, groundStation") == 0) {
+      if (strcmp(mensagemRecebida, "GAMASAT:hi, groundStation") == 0) {
         Serial.println("GamaSat #> hi, groundStation");
         return; 
       }
@@ -129,4 +129,9 @@ void iniciarComunicacaoComSatelite() {
   }
 
   Serial.println("\nERROR 505");
+}
+
+void hdata(){
+  String payload = "hd";
+  enviarPacote(payload);
 }

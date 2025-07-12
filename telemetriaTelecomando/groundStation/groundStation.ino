@@ -37,7 +37,7 @@ void loop() {
 
     if (comand == "initcomm") {
       Serial.println("starting communication");
-      iniciarComunicacaoComSatelite();
+      initcomm();
     }
     else if (comand == "hdata") {
       Serial.println("requested health data");
