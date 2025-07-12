@@ -6,9 +6,9 @@ uint8_t txAddL = 0x10;
 uint8_t rxAddH = 0x02;
 uint8_t rxAddL = 0x20;
 
-uint8_t calculaCheck(const uint8_t* dados, uint8_t tamanho) {
+uint8_t calculaCheck(const uint8_t* dados, uint8_t size) {
   uint8_t soma = 0;
-  for (uint8_t i = 0; i < tamanho; i++) {
+  for (uint8_t i = 0; i < size; i++) {
     soma += dados[i];
   }
   return soma;
@@ -30,6 +30,7 @@ bool enviarPacote(String payload) {
   LoRa.write((const uint8_t*)buffer, length);
   LoRa.write(check);
   LoRa.endPacket();
+  
   Serial.println(" ");
   Serial.println("#");
   Serial.println("Package sent:");
@@ -58,7 +59,7 @@ bool receberPacote(char *mensagem){
   int packetSize = LoRa.parsePacket();
   if (!packetSize) return false;
     
-    Serial.print("Recebendo e lendo pacote loRa");
+    Serial.print("Receiving and reading loRa packet");
     
     uint8_t txH = LoRa.read();
     uint8_t txL = LoRa.read();
@@ -67,14 +68,14 @@ bool receberPacote(char *mensagem){
     uint8_t length = LoRa.read();
 
   if (rxH != 0x01 || rxL != 0x10) {
-      Serial.println("Pacote não foi destinado para a GroundStation Gama");
+      Serial.println("Package was not intended for Gama GroundStation");
       while (LoRa.available()) LoRa.read();
       return false;
     }
 
     
   if (length != packetSize - 6) {
-    Serial.println("Tamanho do pacote não confere");
+    Serial.println("Incorrect package size");
     while (LoRa.available()) LoRa.read();
     return false;
   }
@@ -89,11 +90,11 @@ bool receberPacote(char *mensagem){
 
   uint8_t checkRecebido = LoRa.read();
   if (checksum != checkRecebido) {
-    Serial.println("Check inválido");
+    Serial.println("Invalid check");
     return false;
   }
 
-    Serial.println("Pacote recebido com sucesso:");
+    Serial.println("Package received successfully:");
     Serial.print("packetsize: ");
     Serial.print(packetSize);
     Serial.print(" bytes");
@@ -102,7 +103,7 @@ bool receberPacote(char *mensagem){
     Serial.print(" bytes\n");
     Serial.print("RSSI: ");
     Serial.println(LoRa.packetRssi()); 
-    Serial.print("Mensagem recebida: ");
+    Serial.print("Message received:");
     Serial.println(mensagem);
     return true;
 }
@@ -121,7 +122,7 @@ void iniciarComunicacaoComSatelite() {
   while (millis() - tempoInicio < 5000) {
     if (receberPacote(mensagemRecebida)) {
       if (strcmp(mensagemRecebida, "GAMASAT:Olá, groundStation") == 0) {
-        Serial.println("GamaSat respondeu");
+        Serial.println("GamaSat #> hi, groundStation");
         return; 
       }
     }
