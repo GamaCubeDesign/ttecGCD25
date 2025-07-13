@@ -17,6 +17,11 @@ uint8_t calculaCheck(const uint8_t* dados, uint8_t size) {
 
 bool enviarPacote(String payload) {
   uint8_t length = payload.length();
+  if(length > 100){
+    Serial.print("ERROR 100");
+    return false;
+  }
+  
   const char* buffer = payload.c_str();
 
   uint8_t check = calculaCheck((const uint8_t*)buffer, length);
