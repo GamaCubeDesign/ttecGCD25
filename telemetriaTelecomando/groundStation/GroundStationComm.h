@@ -5,7 +5,7 @@
 #include <LoRa.h>
 
 uint8_t calculaCheck(const uint8_t* dados, uint8_t tamanho);
-void enviarPacote();
+bool enviarPacote(String payload);
 bool receberPacote(char *mensagem);
 void initcomm();
 void hdata();
