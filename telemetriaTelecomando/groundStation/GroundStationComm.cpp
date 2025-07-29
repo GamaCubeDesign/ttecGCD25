@@ -108,6 +108,8 @@ bool receberPacote(char *mensagem){
     Serial.print(" bytes\n");
     Serial.print("RSSI: ");
     Serial.println(LoRa.packetRssi()); 
+    Serial.print("SNR: ");
+    Serial.println(LoRa.packetSnr()); 
     Serial.print("Message received:");
     Serial.println(mensagem);
     return true;

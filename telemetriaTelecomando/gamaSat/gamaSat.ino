@@ -115,6 +115,8 @@ void loop() {
     Serial.print(" bytes\n");
     Serial.print("RSSI: ");
     Serial.println(LoRa.packetRssi()); 
+    Serial.print("SNR: ");
+    Serial.println(LoRa.packetSnr());
     Serial.print("Mensagem recebida: ");
     Serial.println(mensagem);
 
@@ -129,6 +131,8 @@ void loop() {
     display.println(" bytes");
     display.print("RSSI: ");
     display.println(LoRa.packetRssi());
+    display.print("SNR: ");
+    display.println(LoRa.packetSnr());
     display.print("Mensagem recebida: ");
     display.print(mensagem);
     display.display();
