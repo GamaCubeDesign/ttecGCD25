@@ -126,7 +126,7 @@ void initcomm() {
   Serial.println("waiting...");
 
   unsigned long tempoInicio = millis();
-  while (millis() - tempoInicio < 5000) {
+  while (millis() - tempoInicio < 20000) {
     if (receberPacote(mensagemRecebida)) {
       if (strcmp(mensagemRecebida, "GAMASAT:hi, groundStation") == 0) {
         Serial.println("GamaSat #> hi, groundStation");
@@ -135,7 +135,7 @@ void initcomm() {
     }
   }
 
-  Serial.println("\nERROR 505");
+  Serial.println("\nGamaSat did not respond in the expected time (20s)");
 }
 
 void hdata(){

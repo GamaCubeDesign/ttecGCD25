@@ -1,11 +1,6 @@
 #include "Arduino.h"
 #include "GamaSatComm.h"
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 
-
-extern Adafruit_SSD1306 display;
 
 uint8_t rxAddH = 0x01;
 uint8_t rxAddL = 0x10;
@@ -48,15 +43,4 @@ void iniciarComunicacaoComGroundStation() {
   Serial.print("Payload: ");
   Serial.print(length);
   Serial.print(" bytes\n");
-
-  display.clearDisplay();
-  display.setCursor(0, 0); 
-  display.println("Pacote de resposta enviado:");
-  display.print("Pacote completo: ");
-  display.print(length + 6);
-  display.println(" bytes");
-  display.print("Payload: ");
-  display.print(length);
-  display.println(" bytes");
-  display.display();
 }

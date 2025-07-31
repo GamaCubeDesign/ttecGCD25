@@ -21,7 +21,7 @@ void setup() {
   LoRa.setPins(LORA_PIN_NSS, LORA_PIN_RESET, LORA_PIN_IRQ); // set CS, reset, IRQ pin
 
   if (!LoRa.begin(433E6)) {
-    Serial.println("ERROR 101");
+    Serial.println("LoRa initialization failed. Check your connections.");
     while (true);                       
   }
 
