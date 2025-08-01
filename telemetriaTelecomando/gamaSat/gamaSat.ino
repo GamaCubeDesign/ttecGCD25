@@ -45,7 +45,7 @@ void loop() {
   char mensagem[256]; 
 
   if (packetSize) {
-    Serial.print("Recebendo e lendo pacote loRa");
+    Serial.print("Receiving and reading loRa packet");
     
     uint8_t txH = LoRa.read();
     uint8_t txL = LoRa.read();

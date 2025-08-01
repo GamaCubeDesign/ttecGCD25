@@ -18,7 +18,7 @@ uint8_t calculaCheck(const uint8_t* dados, uint8_t size) {
 bool enviarPacote(String payload) {
   uint8_t length = payload.length();
   if(length > 100){
-    Serial.print("ERROR 100");
+    Serial.print("ERROR: The packet contains more than 100 bytes.");
     return false;
   }
   

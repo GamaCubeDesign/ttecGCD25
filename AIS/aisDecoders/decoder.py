@@ -7,7 +7,7 @@ with open(arquivo_entrada, "r") as f, open(arquivo_saida, "w") as out:
     for linha in f:
         linha = linha.strip()
         if not linha:
-            continue  # pula linhas vazias
+            continue  
         try:
             mensagemDecodificada = decode(linha)
             parametros = mensagemDecodificada.asdict()

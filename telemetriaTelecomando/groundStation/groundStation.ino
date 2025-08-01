@@ -47,7 +47,7 @@ void loop() {
       
     }
     else {
-      Serial.println("ERROR 301");
+      Serial.println("Error: nonexistent command.");
     }
   }
 }
