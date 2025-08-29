@@ -37,7 +37,7 @@ void setup() {
   Serial.println("Testing the Gama Ground Station communication system with the LoRa Ra-02 RF module");
 
   if (!inicializaLoRa()) {
-    Serial.println("Tentando reinicializar em 5 segundos...");
+    Serial.println("restarting in 5 seconds...");
     delay(5000);
     inicializaLoRa(); 
   }
@@ -49,6 +49,7 @@ void loop() {
   Serial.println("waiting for telemetry");
   int packetSize = LoRa.parsePacket();
   char mensagem[256]; 
+  memset(mensagem, 0, sizeof(mensagem)); 
 
   if (packetSize) {
     Serial.print("Receiving and reading loRa packet");
@@ -100,14 +101,13 @@ void loop() {
     Serial.print("Message received: ");
     Serial.println(mensagem);
 
-  }
-
-   if (strcmp(mensagem, "GSGAMA:hi, GamaSat") == 0) {
-      iniciarComunicacaoComGroundStation();
+    if (strcmp(mensagem, "GSGAMA:hi, GamaSat") == 0) {
+    iniciarComunicacaoComGroundStation();
   }else if (strcmp(mensagem, "hd") == 0) {
-      Serial.println("requested health data");
-      hdata();
-    }
-  
+    Serial.println("requested health data");
+    //hdata();
+  }
+  delay(10000);
+  }
   }
 

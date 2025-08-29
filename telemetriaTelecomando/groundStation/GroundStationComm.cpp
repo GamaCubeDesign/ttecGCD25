@@ -64,7 +64,7 @@ bool receberPacote(char *mensagem){
   int packetSize = LoRa.parsePacket();
   if (!packetSize) return false;
     
-    Serial.print("Receiving and reading loRa packet");
+    Serial.println("Receiving and reading loRa packet");
     
     uint8_t txH = LoRa.read();
     uint8_t txL = LoRa.read();
@@ -141,4 +141,8 @@ void initcomm() {
 void hdata(){
   String payload = "hd";
   enviarPacote(payload);
+}
+
+void sms(String message){
+  enviarPacote(message);
 }

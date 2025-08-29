@@ -19,6 +19,7 @@ bool inicializaLoRa() {
   }
 
   Serial.println("LoRa inicializado com sucesso.");
+  LoRa.begin(433E6);  
   return true;
 }
 
@@ -50,6 +51,11 @@ void loop() {
     else if (comand == "hdata") {
       Serial.println("requested health data");
       hdata();
+    }
+    else if (comand.startsWith("sms ")) {
+      String message = comand.substring(4);
+      message.trim();
+      sms(message);
     }
     else {
       Serial.println("Error: nonexistent command.");

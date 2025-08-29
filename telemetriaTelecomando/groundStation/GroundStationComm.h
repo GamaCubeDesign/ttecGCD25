@@ -9,5 +9,6 @@ bool enviarPacote(String payload);
 bool receberPacote(char *mensagem);
 void initcomm();
 void hdata();
+void sms(String message);
 
 #endif
