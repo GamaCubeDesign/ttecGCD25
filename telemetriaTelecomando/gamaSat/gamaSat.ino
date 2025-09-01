@@ -101,11 +101,11 @@ void loop() {
     Serial.print("Message received: ");
     Serial.println(mensagem);
 
-    if (strcmp(mensagem, "GSGAMA:hi, GamaSat") == 0) {
+  if (strcmp(mensagem, "GSGAMA:hi, GamaSat") == 0) {
     iniciarComunicacaoComGroundStation();
   }else if (strcmp(mensagem, "hd") == 0) {
     Serial.println("requested health data");
-    //hdata();
+    hdata();
   }
   delay(10000);
   }

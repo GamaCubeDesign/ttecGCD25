@@ -139,8 +139,23 @@ void initcomm() {
 }
 
 void hdata(){
+  char mensagemHD[256];
+  memset(mensagemHD, 0, sizeof(mensagemHD));
   String payload = "hd";
   enviarPacote(payload);
+  
+  Serial.println("waiting...");
+
+  unsigned long tempoInicio = millis();
+  while (millis() - tempoInicio < 20000) {
+    if (receberPacote(mensagemHD)) {
+      if (strcmp(mensagemHD, "Health data not found") == 0) {
+        Serial.println("GamaSat has no health data to send");
+        return; 
+      }
+    }
+  }
+  Serial.println("\nGamaSat did not respond correctly in the expected time (20s)");
 }
 
 void sms(String message){
