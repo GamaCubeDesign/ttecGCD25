@@ -9,6 +9,7 @@
 #define LORA_PIN_RESET    14    // Pino de reset do módulo LoRa
 #define LORA_PIN_IRQ      26    // Pino de interrupção DIO0 (recepção de pacotes)
 
+
 bool inicializaLoRa() {
   SPI.begin(LORA_PIN_SCK, LORA_PIN_MISO, LORA_PIN_MOSI, LORA_PIN_NSS);
   LoRa.setPins(LORA_PIN_NSS, LORA_PIN_RESET, LORA_PIN_IRQ);
@@ -56,10 +57,20 @@ void loop() {
       String message = comand.substring(4);
       message.trim();
       sms(message);
-    }
+    }else if (comand == "camon") {
+      Serial.println("Starting Camera");
+      camon("con");
+      if(comand == "camoff"){
+        Serial.println("Shutting down the camera.");
+        camon("coff");
+      }
+    }else if (comand == "antennaopen") {
+        antennaopen("antennaopen");
+      }
+      
     else {
       Serial.println("Error: nonexistent command.");
     }
   }
 }
-
+}

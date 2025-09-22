@@ -17,8 +17,8 @@ uint8_t calculaCheck(const uint8_t* dados, uint8_t size) {
 
 bool enviarPacote(String payload) {
   uint8_t length = payload.length();
-  if(length > 100){
-    Serial.print("ERROR: The packet contains more than 100 bytes.");
+  if(length > 200){
+    Serial.print("ERROR: The packet contains more than 200 bytes.");
     return false;
   }
   
@@ -161,3 +161,51 @@ void hdata(){
 void sms(String message){
   enviarPacote(message);
 }
+
+void camon(String payload){
+  char mensagemCO[256];
+  memset(mensagemCO, 0, sizeof(mensagemCO));
+  enviarPacote(payload);
+
+
+  Serial.println("The camera connection was requested.");
+  Serial.println("Waiting for confirmation ...");
+
+  unsigned long tempoInicio = millis();
+  while (millis() - tempoInicio < 20000) {
+    if (receberPacote(mensagemCO)) {
+      if (strcmp(mensagemCO, "Camera connected successfully.") == 0) {
+        Serial.println("Camera connected successfully.");
+        return;
+        if (strcmp(mensagemCO, "Shutting down the camera.") == 0) {
+        Serial.println("Camera shut down successfully.");
+        return;  
+      }
+    }
+  }
+}
+  Serial.println("\nGamaSat did not respond correctly in the expected time (20s)");
+}
+
+void antennaopen(String payload){
+  char messageAT[256];
+  memset(messageAT, 0, sizeof(messageAT));
+  enviarPacote(payload);
+
+
+  Serial.println("Antenna deployment was requested.");
+  Serial.println("Waiting for confirmation ...");
+
+  unsigned long starttime = millis();
+  while (millis() - starttime < 20000) {
+    if (receberPacote(messageAT)) {
+      if (strcmp(messageAT, "The antennas were deployed successfully.") == 0) {
+        Serial.println("The antennas were deployed successfully.");
+        return;  
+      }
+    }
+  }
+  Serial.println("\nGamaSat did not respond correctly in the expected time (20s)");
+}
+
+
