@@ -2,7 +2,7 @@
 #define DATA_FIFO_H
 
 #include <iostream>
-//#include "CommunicationProtocol.h"
+#include "CommunicationProtocol.h"
 
 class FIFO{
 public:
@@ -20,7 +20,7 @@ public:
 class StatusFIFO : public FIFO{
 public:
     static const unsigned int buffer_size = 10;
-    HealthData serial_buffer[buffer_size];
+    HealthData serial_buffer[buffer_size];      //HealtData é uma strutc que está declarada em CommunicationProtocol.h          
     void write(HealthData b);
     HealthData read();
 };
@@ -29,7 +29,7 @@ public:
 class ImagingFIFO : public FIFO{
 public:
     static const unsigned int buffer_size = 30;
-    ImagingData serial_buffer[buffer_size];
+    ImagingData serial_buffer[buffer_size];     //ImagingData é uma strutc que está declarada em CommunicationProtocol.h
     void write(ImagingData b);
     ImagingData read();
 };

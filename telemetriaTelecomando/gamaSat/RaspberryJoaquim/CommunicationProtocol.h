@@ -145,7 +145,7 @@ struct ImagingData{
     // uint8_t length;
     // uint8_t type;
     LightningData lightnings[5];
-};
+}
 
 
 
