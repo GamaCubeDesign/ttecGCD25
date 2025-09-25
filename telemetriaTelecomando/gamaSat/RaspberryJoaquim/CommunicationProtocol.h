@@ -1,5 +1,8 @@
 #ifndef COMMUNICATION_PROTOCOL_H
 #define COMMUNICATION_PROTOCOL_H
+#include <cstdint>   // adiciona no topo do arquivo
+
+uint8_t data;
 
 enum PROTOCOL{
     PROTOCOL_STATUS,
@@ -145,7 +148,7 @@ struct ImagingData{
     // uint8_t length;
     // uint8_t type;
     LightningData lightnings[5];
-}
+};
 
 
 

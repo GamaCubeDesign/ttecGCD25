@@ -1,5 +1,9 @@
 #ifndef COMMUNICATION_PROTOCOL_H
 #define COMMUNICATION_PROTOCOL_H
+#include <cstdint>   // adiciona no topo do arquivo
+
+uint8_t data;
+
 
 enum PROTOCOL{
     PROTOCOL_STATUS,

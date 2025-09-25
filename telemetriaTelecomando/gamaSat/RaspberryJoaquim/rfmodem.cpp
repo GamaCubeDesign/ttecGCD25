@@ -1,6 +1,31 @@
 #include "rfmodem.h"
 
+LoRa_ctl modem;
+uint8_t rx_buffer[255];
+unsigned int rx_buffer_pointer = 0;
+unsigned int rx_buffer_size = 0;
 
+
+void *rx_f(void *p)
+{
+    rxData *rx = (rxData *)p;
+    printf("rx done \n");
+    printf("CRC error: %d\n", rx->CRC);
+    printf("Data size: %d\n", rx->size);
+    printf("string: %s\n", rx->buf); // Data we’v received
+    printf("RSSI: %d\n", rx->RSSI);
+    printf("SNR: %f\n", rx->SNR);
+    rx_buffer_pointer = 0;
+    rx_buffer_size = rx->size;
+    memcpy(rx_buffer, rx->buf, rx->size);
+    free(p);
+    return NULL;
+}
+
+void tx_f(txData *tx)
+{
+    printf("tx done \n");
+}
 
 void initRfModule(){
     // See for typedefs, enumerations and there values in LoRa.h header file

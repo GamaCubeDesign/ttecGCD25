@@ -2,7 +2,7 @@
 #define DATA_FIFO_H
 
 #include <iostream>
-//#include "CommunicationProtocol.h"
+#include "CommunicationProtocol.h"
 
 class FIFO{
 public:

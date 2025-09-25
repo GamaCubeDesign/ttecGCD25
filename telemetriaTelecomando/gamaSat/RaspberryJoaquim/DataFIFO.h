@@ -1,5 +1,8 @@
 #ifndef DATA_FIFO_H
 #define DATA_FIFO_H
+#include <cstdint>   // adiciona no topo do arquivo
+
+
 
 #include <iostream>
 #include "CommunicationProtocol.h"
