@@ -3,11 +3,10 @@
  
  #include <cstdint>
  #include "CommunicationProtocol.h"
- #include "Moden.h"
+ //#include "Moden.h"
  #include "Timing.h"
  
 
- //extern SerialConsole console;
  extern uint8_t rxAddh;
  extern uint8_t rxAddl;
  extern uint8_t rxChan;
@@ -23,4 +22,6 @@
  void sendSatPacket();
  void updateRFComm();
  void onReceive();
+ void switchHealthProtocol();
+ void switchStatusProtocol();
  #endif

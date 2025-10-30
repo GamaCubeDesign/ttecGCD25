@@ -1,41 +1,66 @@
 #include <iostream>
 #include <thread>
-
-#ifdef __cplusplus
-extern "C" {
-#include "sx1278-LoRa-RaspberryPi/LoRa.h"
-}
-#endif
-
-
-using namespace std;
-
+#include <unistd.h>
 
 #include "Moden.h"
 #include "Module.h"
 #include "Integration.h"
 
+/*#ifdef __cplusplus
+extern "C" {
+#include "sx1278-LoRa-RaspberryPi/LoRa.h"
+}
+#endif
+*/
+
+using namespace std;
+
+
 
 bool run = false;
 
 void loop(){
-    updateRFComm();
+    //updateRFComm();
 }
 
 
 int main(int argc, char *argv[]){
-    std::cout << "Raspberry Gama Satellite communication system with LoRa Ra-02\n";
-    return 0;
+    std::cout << "Telemetry and remote control system with LoRa RA-02 using Calopsat's Raspberry Pi\n";
 
-    initRFModule();
+    std::cout << "\nTrying to initialize the LoRa module\n";
 
-    std::cout << "Device initiated successfully\n";
+    //initRFModule();
 
+    std::cout << "\nDevice initiated successfully\n";
+
+    std::cout << "\nEntering the loop...\n";
+
+    sleep(3);
+    
     run = true;
 
-    while(run){
+    /*while(run){
         loop();
-    }
+    }*/
+    extern healthData health;  
+
+    healthData removed;
+    generateHealthData();
+    fila* f = criaFila();
+
+    mostraFIFO(f);                  
+    f = enfileira(f, health);
+    
+    parse2Health();
+    f = enfileira(f, health);
+
+    mostraFIFO(f);                  
+
+    desinfileira(f, &removed);
+
+    mostraFIFO(f);                  
+    free(f);
+
 
 
     return 0;

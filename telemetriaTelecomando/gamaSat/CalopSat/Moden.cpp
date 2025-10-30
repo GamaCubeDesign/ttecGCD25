@@ -1,6 +1,7 @@
 #include "Moden.h"
+#include <stdint.h>
 
-LoRa_ctl modem;
+//LoRa_ctl modem;
 uint8_t rxBuffer[255];
 unsigned int rxBufferPointer = 0;
 unsigned int rxBufferSize = 0;
@@ -14,7 +15,7 @@ uint8_t modemRead(){
     return rxBuffer[rxBufferPointer++];
 }
 
-
+/*
 //Esse callback rx_f é chamado pela lib toda vez que chega um pacote LoRa.
 //Ele atualiza o rxBufferSize e o rxBufferPointer
 void *rx_f(void *p){
@@ -32,6 +33,9 @@ void *rx_f(void *p){
     return NULL;
 }
 
+void tx_f(txData *tx){
+    printf("tx done \n");
+}
 
 //Função que inicializa o módulo LoRa
 void initRFModule(){
@@ -83,3 +87,5 @@ void tx_send(uint8_t *buf, unsigned int size){
 void modemFinish(){
     LoRa_end(&modem);
 }
+
+*/
