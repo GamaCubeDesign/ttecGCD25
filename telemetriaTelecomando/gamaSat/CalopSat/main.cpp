@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
 
     std::cout << "\nTrying to initialize the LoRa module\n";
 
-    //initRFModule();
+    initRFModule();
 
     std::cout << "\nDevice initiated successfully\n";
 

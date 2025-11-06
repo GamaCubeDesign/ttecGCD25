@@ -11,7 +11,7 @@ TARGET = lora_app
 
 # Fontes e objetos
 CPP_SRC = main.cpp Integration.cpp Moden.cpp Module.cpp
-C_SRC = lora.c
+C_SRC = LoRa.c
 OBJ = $(CPP_SRC:.cpp=.o) $(C_SRC:.c=.o)
 
 # Regra padrão
