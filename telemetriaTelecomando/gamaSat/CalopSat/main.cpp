@@ -20,7 +20,7 @@ using namespace std;
 bool run = false;
 
 void loop(){
-    //updateRFComm();
+    updateRFComm();
 }
 
 

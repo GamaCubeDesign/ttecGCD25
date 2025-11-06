@@ -1,7 +1,7 @@
 #include "Moden.h"
 #include <stdint.h>
 
-//LoRa_ctl modem;
+LoRa_ctl modem;
 uint8_t rxBuffer[255];
 unsigned int rxBufferPointer = 0;
 unsigned int rxBufferSize = 0;

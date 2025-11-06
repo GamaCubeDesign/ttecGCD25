@@ -113,10 +113,3 @@ void switchHealthProtocol() {
     }
 }
 
-/*
-int main(){
-    satPacket.protocol = STATUS_PROTOCOL;
-    satPacket.operation = INITCOMM;
-    onReceive();
-    return 0;
-}*/
