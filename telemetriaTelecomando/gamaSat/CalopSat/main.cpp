@@ -39,28 +39,10 @@ int main(int argc, char *argv[]){
     
     run = true;
 
-    /*while(run){
+    while(run){
         loop();
     }
-    return 0;*/
+    return 0;
 
-    extern healthData health;  
-
-    healthData removed;
-    generateHealthData();
-    fila* f = criaFila();
-
-    mostraFIFO(f);                  
-    f = enfileira(f, health);
-    mostraFIFO(f);                  
-
-    parse2Health();
-    f = enfileira(f, health);
-
-    mostraFIFO(f);                  
-
-    desinfileira(f, &removed);
-
-    mostraFIFO(f);                  
-    free(f);
+    
 }
