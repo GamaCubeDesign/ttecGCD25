@@ -6,6 +6,9 @@ CC = gcc
 CXXFLAGS = -Wall -O2 -std=c++17
 CFLAGS = -Wall -O2 -std=c11
 
+# Bibliotecas necessárias
+LIBS = -lpigpio -lpthread -lrt -lm
+
 # Nome do executável
 TARGET = lora_app
 
@@ -19,7 +22,7 @@ all: $(TARGET)
 
 # Linkagem final
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 
 # Compilação de arquivos .cpp
 %.o: %.cpp
