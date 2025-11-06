@@ -50,7 +50,8 @@ int main(int argc, char *argv[]){
 
     mostraFIFO(f);                  
     f = enfileira(f, health);
-    
+    mostraFIFO(f);                  
+
     parse2Health();
     f = enfileira(f, health);
 

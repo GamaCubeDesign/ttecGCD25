@@ -195,6 +195,9 @@ void mostraFIFO(fila* f) {
     std::cout << "          Nó Cabeça                 |" << std::endl;
     std::cout << "                                    |" << std::endl;
     std::cout << "              |_____________________|" << std::endl;
+    std::cout << "" << std::endl;
+    std::cout << "" << std::endl;
+
 }
 
 
