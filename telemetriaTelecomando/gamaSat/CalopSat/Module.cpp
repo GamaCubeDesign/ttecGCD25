@@ -22,6 +22,8 @@ void sendSatPacket() {
 
 
 void updateRFComm() {
+    std::cout << "\n Aguardando pacote \n";
+
     uint8_t b;
     if (modemAvailable()) {
         while (modemAvailable()) {
