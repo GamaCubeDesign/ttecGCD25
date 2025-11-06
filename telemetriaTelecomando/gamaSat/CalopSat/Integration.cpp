@@ -1,7 +1,7 @@
 #include "Integration.h"
 #include "CommunicationProtocol.h"
 
-//#include "Moden.h"
+#include "Moden.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -110,7 +110,7 @@ void parse2Health(){
 }
 
 void sendHealthData(){
-    //tx_send((uint8_t*)&health, health.length);
+    tx_send((uint8_t*)&health, health.length);
     std::cout << "\nHealth data sent.\n" << std::endl;
 
 }
@@ -122,7 +122,7 @@ void parseImaging(){
 
 
 void SendImagingData(){
-    //tx_send((uint8_t*)&imaging, imaging.length);
+    tx_send((uint8_t*)&imaging, imaging.length);
 }
 
 int verifyFile(){

@@ -10,6 +10,8 @@
 #include <sys/time.h>
 #include <stdint.h>
 
+
+
 #ifndef __cplusplus
   #include <stdbool.h>   // garante definição de _Bool, bool, true, false
 #else

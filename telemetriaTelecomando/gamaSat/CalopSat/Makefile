@@ -1,13 +1,18 @@
-# Compilador e opções básicas
+# Compiladores
 CXX = g++
+CC = gcc
+
+# Opções de compilação
 CXXFLAGS = -Wall -O2 -std=c++17
+CFLAGS = -Wall -O2 -std=c11
 
 # Nome do executável
 TARGET = lora_app
 
 # Fontes e objetos
-SRC = main.cpp Integration.cpp Moden.cpp Module.cpp
-OBJ = $(SRC:.cpp=.o)
+CPP_SRC = main.cpp Integration.cpp Moden.cpp Module.cpp
+C_SRC = lora.c
+OBJ = $(CPP_SRC:.cpp=.o) $(C_SRC:.c=.o)
 
 # Regra padrão
 all: $(TARGET)
@@ -16,9 +21,13 @@ all: $(TARGET)
 $(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Compilação de cada arquivo .cpp
+# Compilação de arquivos .cpp
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Compilação de arquivos .c
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpeza
 clean:

@@ -15,21 +15,12 @@ GSPacket gsPacket;
 uint8_t rx_pointer = 0;
 
 void sendSatPacket() {
-    //tx_send((uint8_t*)&satPacket, satPacket.length);
+    tx_send((uint8_t*)&satPacket, satPacket.length);
     std::cout << "Protocol: " << satPacket.protocol << "\n";
     std::cout << "Operation: " << satPacket.operation << "\n";
 }
 
-/*void initcomm(){
-    memset(&satPacket, 0, sizeof(SatPacket)); // zera memória da struct
-    const char *mensagem = "Olá, groundstation!";
-    // copia texto e define tamanho
-    strncpy(satPacket.txt, mensagem, sizeof(satPacket.txt) - 1);
-    satPacket.length = sizeof(SatPacket);
-    sendSatPacket();
-}*/
 
-/*
 void updateRFComm() {
     uint8_t b;
     if (modemAvailable()) {
@@ -54,7 +45,7 @@ void updateRFComm() {
 
         //communication_timeout = millis() + communication_timeout_limit;
     }
-}*/
+}
 
 
 //Essa função decide o que fazer de acordo com o comando recebido

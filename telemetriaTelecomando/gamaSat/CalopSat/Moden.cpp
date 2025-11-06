@@ -15,7 +15,7 @@ uint8_t modemRead(){
     return rxBuffer[rxBufferPointer++];
 }
 
-/*
+
 //Esse callback rx_f é chamado pela lib toda vez que chega um pacote LoRa.
 //Ele atualiza o rxBufferSize e o rxBufferPointer
 void *rx_f(void *p){
@@ -88,4 +88,3 @@ void modemFinish(){
     LoRa_end(&modem);
 }
 
-*/
