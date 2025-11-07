@@ -265,4 +265,4 @@ void lora_set_explicit_header(int spid);
 }
 #endif
 
-#endif /* LORA_H */
+#endif 

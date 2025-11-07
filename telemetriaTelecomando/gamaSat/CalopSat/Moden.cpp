@@ -58,8 +58,17 @@ void initRFModule(){
     modem.eth.implicitHeader = 0;     // Explicit header mode
     modem.eth.syncWord = 0x12;
     // For detail information about SF, Error Coding Rate, Explicit header, Bandwidth,AGC, Over current protection and other features refer to sx127x datasheet https : // www.semtech.com/uploads/documents/DS_SX1276-7-8-9_W_APP_V5.pdf
-    LoRa_begin(&modem);
+    int status = LoRa_begin(&modem);
+    
+    if (status < 0) {
+        printf("Error initializing the LoRa module.\n");
+        return;
+    }
+    printf("LoRa module successfully initialized!\n");
+    
     LoRa_receive(&modem);
+    printf("\nActive reception mode\n");
+
 }
 
 //Função que envia os dados via LoRa, envia apenas os campos da struct modem: modem.tx.data.buf e modem.tx.data.size

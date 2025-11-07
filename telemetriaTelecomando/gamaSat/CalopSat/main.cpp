@@ -25,13 +25,14 @@ void loop(){
 
 
 int main(int argc, char *argv[]){
-    std::cout << "Telemetry and remote control system with LoRa RA-02 using Calopsat's Raspberry Pi\n";
+    std::cout << "Telemetry and remote control system with LoRa RA-02 using Iarasat's Raspberry Pi\n";
+
+    std::cout << "Initializing the data storage subsystems....\n";
+    initSubsystems();
 
     std::cout << "\nTrying to initialize the LoRa module\n";
 
     initRFModule();
-
-    std::cout << "\nDevice initiated successfully\n";
 
     std::cout << "\nEntering the loop...\n";
 

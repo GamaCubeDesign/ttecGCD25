@@ -37,9 +37,19 @@ void SendImagingData();
 int verifyFile();
 void generateHealthData();
 
-fila* criaFila();
-fila* enfileira(fila* f, healthData x);
-int desinfileira(fila* f, healthData* y);
-void mostraFIFO(fila* f);
+extern fila* HealthFIFO;
+extern fila* ImagingFIFO;
+extern fila* ThermalControlFIFO;
+
+extern int HealthDataCounter;
+extern int ImagingDataCounter;
+extern int ThermalControlDataCounter;
+
+fila* CreateFIFO();
+fila* Enqueue(fila* f, healthData x);
+int Dequeue(fila* f, healthData* y);
+void ShowFIFO(fila* f);
+
+void initSubsystems();
 
 #endif

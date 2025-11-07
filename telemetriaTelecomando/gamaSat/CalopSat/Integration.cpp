@@ -12,17 +12,25 @@
 using json = nlohmann::json;
 
 
+fila* HealthFIFO = NULL;
+fila* ImagingFIFO = NULL;
+fila* ThermalControlFIFO = NULL;
+
+int HealthDataCounter = 0;
+int ImagingDataCounter = 0;
+int ThermalControlDataCounter = 0;
+
 healthData health;
 imagingData imaging;
 
-fila* criaFila() {
+fila* CreateFIFO() {
     fila* f = (fila*) malloc(sizeof(fila));
     if (!f) return NULL;
     f->prox = f;
     return f;
 }
 
-fila* enfileira(fila* f, healthData x) {
+fila* Enqueue(fila* f, healthData x) {
     fila* novo = (fila*) malloc(sizeof(fila));
     if (!novo) return f;
     novo -> prox = f -> prox;
@@ -32,13 +40,32 @@ fila* enfileira(fila* f, healthData x) {
 }
 
 // Desinfileira do início
-int desinfileira(fila* f, healthData* y) {
+int Dequeue(fila* f, healthData* y) {
     if (f->prox == f) return 1; // fila vazia
     fila* lixo = f->prox;
     *y = lixo->dado;
     f->prox = lixo->prox;
     free(lixo);
     return 0; // sucesso
+}
+
+void initSubsystems(){
+    HealthFIFO = CreateFIFO();
+    ImagingFIFO = CreateFIFO();
+    ThermalControlFIFO = CreateFIFO();
+
+    if (!HealthFIFO || !ImagingFIFO || !ThermalControlFIFO) {
+        std::cout << "\nSome or all of the structures have not been initialized.\n" << std::endl;
+        return;
+    }
+    
+    std::cout << "\nAll structures have been successfully initialized.\n" << std::endl;
+    std::cout << "\nHealth data FIFO: \n" << std::endl;
+    ShowFIFO(HealthFIFO);
+    std::cout << "\nImaging data FIFO: \n" << std::endl;
+    ShowFIFO(ImagingFIFO);  
+    std::cout << "\nThermal control data FIFO: \n" << std::endl;
+    ShowFIFO(ThermalControlFIFO);
 }
 
 void parseHealth(){
@@ -145,20 +172,23 @@ void generateHealthData(){
     
     if(verifyFile()){
         parseHealth();
+        HealthFIFO = Enqueue(HealthFIFO, health);
+        HealthDataCounter++;
         sendHealthData();
     } else {
         std::cout << "Health data file not found." << std::endl;
     }
 }
 
-void mostraFIFO(fila* f) {
+void ShowFIFO(fila* f) {
     if (!f || f->prox == f) {
-        std::cout << "Fila vazia!" << std::endl;
+        std::cout << "Empty FIFO!" << std::endl;
+        std::cout << "Only the head node allocated." << std::endl;
         std::cout << "               _____________________ " << std::endl;
         std::cout << "              |                     |" << std::endl;
         std::cout << "              V                     |" << std::endl;
         std::cout << "                                    |" << std::endl;
-        std::cout << "          Nó Cabeça                 |" << std::endl;
+        std::cout << "          Head node                 |" << std::endl;
         std::cout << "                                    |" << std::endl;
         std::cout << "              |_____________________|" << std::endl;
         std::cout << "" << std::endl;
@@ -175,7 +205,7 @@ void mostraFIFO(fila* f) {
     std::cout << "              V                     |" << std::endl;
     while (atual != f) { // percorre até voltar ao nó cabeça
         std::cout << "                                    |" << std::endl;
-        std::cout << "  Pacote " << i << ":                         |" << std::endl;
+        std::cout << "  Packet " << i << ":                         |" << std::endl;
         std::cout << "  Voltage: " << atual->dado.voltage << " V                  |" << std::endl;
         std::cout << "  Current: " << atual->dado.current << " mA                 |" << std::endl;
         std::cout << "  Power: " << atual->dado.power << " mW                  |" << std::endl;
@@ -192,7 +222,7 @@ void mostraFIFO(fila* f) {
         i++;
     }
     std::cout << "                                    |" << std::endl;
-    std::cout << "          Nó Cabeça                 |" << std::endl;
+    std::cout << "          Head node                 |" << std::endl;
     std::cout << "                                    |" << std::endl;
     std::cout << "              |_____________________|" << std::endl;
     std::cout << "" << std::endl;

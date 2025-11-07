@@ -22,7 +22,7 @@ void sendSatPacket() {
 
 
 void updateRFComm() {
-    std::cout << "\n Aguardando pacote \n";
+    std::cout << "\n Waiting for packet. \n";
 
     uint8_t b;
     if (modemAvailable()) {
@@ -52,8 +52,9 @@ void updateRFComm() {
 
 //Essa função decide o que fazer de acordo com o comando recebido
 void onReceive() {
-    std::cout << "Protocol:" << (int)gsPacket.protocol << std::endl;
-    std::cout << "Operation:" << (int)gsPacket.operation << std::endl;
+    std::cout << "Protocol processing:" << std::endl;
+    std::cout << "\nProtocol:" << (int)gsPacket.protocol << std::endl;
+    std::cout << "\nOperation:" << (int)gsPacket.operation << std::endl;
     
     switch (gsPacket.protocol) {
         case HEALTH_PROTOCOL:
