@@ -24,4 +24,9 @@
  void onReceive();
  void switchHealthProtocol();
  void switchStatusProtocol();
+ void switchAISProtocol();
+ void switchControlProtocol();
+ void switchThermalProtocol();
+ void switchImagingProtocol();
+ void switchMECProtocol();
  #endif

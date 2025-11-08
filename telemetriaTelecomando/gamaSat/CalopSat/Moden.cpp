@@ -7,6 +7,7 @@ unsigned int rxBufferPointer = 0;
 unsigned int rxBufferSize = 0;
 
 uint8_t modemAvailable(){
+    printf("\nrxBufferSize: %u\n", rxBufferSize);
     return rxBufferSize;
 }
 

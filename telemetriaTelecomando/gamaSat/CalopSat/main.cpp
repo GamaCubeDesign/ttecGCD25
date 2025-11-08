@@ -6,11 +6,8 @@
 #include "Module.h"
 #include "Integration.h"
 
-#ifdef __cplusplus
-extern "C" {
 #include "LoRa.h"
-}
-#endif
+
 
 
 using namespace std;

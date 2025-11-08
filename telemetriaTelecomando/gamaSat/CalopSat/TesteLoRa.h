@@ -1,10 +1,5 @@
-#ifdef __cplusplus
-extern "C" {
-    #ifndef _Bool
-        #define _Bool bool
-    #endif
-#endif
-
+#ifndef LORA_H
+#define LORA_H
 
 #include <pthread.h>
 #include <string.h>
@@ -14,6 +9,19 @@ extern "C" {
 #include <math.h>
 #include <sys/time.h>
 #include <stdint.h>
+#include <unistd.h>
+
+
+
+#ifndef __cplusplus
+  #include <stdbool.h>   // garante definição de _Bool, bool, true, false
+#else
+  typedef bool _Bool;    
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define REG_FIFO 0x00
 #define REG_OP_MODE 0x01
@@ -256,3 +264,5 @@ void lora_set_explicit_header(int spid);
 #ifdef __cplusplus
 }
 #endif
+
+#endif 

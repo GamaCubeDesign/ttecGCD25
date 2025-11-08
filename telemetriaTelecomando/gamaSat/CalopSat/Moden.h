@@ -1,12 +1,8 @@
 #ifndef MODEN_H
 #define MODEN_H
 
-#ifdef __cplusplus
-extern "C"
-{
 #include "LoRa.h"
-}
-#endif
+
 
 extern LoRa_ctl modem;
 extern uint8_t rxBuffer[255];
@@ -18,6 +14,7 @@ extern void *rx_f(void *p);
 extern void tx_f(txData *tx);
 extern void initRFModule();
 extern void tx_send(uint8_t *buf, unsigned int size);
-extern void modemFinish();
+extern void modemFinish(); 
+
 
 #endif

@@ -20,6 +20,11 @@ enum Operation : uint8_t {
     //status data
     INITCOMM = 2,
     VERIFY_FILE = 3,
+
+    //Mechanical control
+    OPEN_ANTENNAS = 4,
+
+    INDEFINIDO = 5,
 };
 
 

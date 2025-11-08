@@ -63,42 +63,34 @@ void onReceive() {
             break;
         case AIS_PROTOCOL:
             std::cout << "\nAISPROTOCOL\n" << std::endl;
-            
+            switchAISProtocol();
             break;
         case MEC_PROTOCOL:
             std::cout << "\nMECPROTOCOL\n" << std::endl;
-            
+            switchMECProtocol();
+            break;
+        case IMAGING_PROTOCOL:
+            std::cout << "\nIMAGINGPROTOCOL\n" << std::endl;
+            switchImagingProtocol();
+            break;
+        case CONTROL_PROTOCOL:
+            std::cout << "\nCONTROLPROTOCOL\n" << std::endl;
+            switchControlProtocol();
             break;
         case STATUS_PROTOCOL:
             std::cout << "\nSTATUSPROTOCOL\n" << std::endl;
             switchStatusProtocol();
             break;
-        default:
-        // ignorar ou logar erro
-        break;
-    }
-
-}
-void switchStatusProtocol(){
-    switch(gsPacket.operation){
-        case INITCOMM:
-            std::cout << "\nINITCOMM\n" << std::endl;
-            satPacket.length = sizeof(SatPacket);
-            satPacket.protocol = STATUS_PROTOCOL;
-            satPacket.operation = INITCOMM;
-            sendSatPacket();
+        case TERM_PROTOCOL:
+            std::cout << "\nTERMPROTOCOL\n" << std::endl;
+            switchThermalProtocol();
             break;
-        case VERIFY_FILE:
-            std::cout << "\nVERIFY_FILE\n" << std::endl;
-            //int verifyFile();
         default:
-        // ignorar ou logar erro
+        // ignora
         break;
     }
 
 }
-
-
 
 void switchHealthProtocol() {
     switch (gsPacket.operation) {
@@ -111,8 +103,89 @@ void switchHealthProtocol() {
             
             break;
         default:
-        // ignorar ou logar erro
+        // ignora
         break;
     }
 }
+/*
+void switchAISProtocol(){
+    switch(gsPacket.operation){
+        case INDEFINIDO:
+            break;
+        case INDEFINIDO:
+            break;
+        default:
+        // ignora
+        break;
+    }
 
+}*/
+
+void switchMECProtocol(){
+    switch(gsPacket.operation){
+        case OPEN_ANTENNAS:
+            break;
+        default:
+        // ignora
+        break;
+    }
+
+}
+/*
+void switchImagingProtocol(){
+    switch(gsPacket.operation){
+        case INDEFINIDO:
+            break;
+        case INDEFINIDO:
+            break;
+        default:
+        // ignora
+        break;
+    }
+
+}*/
+/*
+void switchControlProtocol(){
+    switch(gsPacket.operation){
+        case INDEFINIDO:
+            break;
+        case INDEFINIDO:
+            break;
+        default:
+        // ignora
+        break;
+    }
+
+}*/
+
+void switchStatusProtocol(){
+    switch(gsPacket.operation){
+        case INITCOMM:
+            std::cout << "\nINITCOMM\n" << std::endl;
+            satPacket.length = sizeof(SatPacket);
+            satPacket.protocol = STATUS_PROTOCOL;
+            satPacket.operation = INITCOMM;
+            sendSatPacket();
+            break;
+        case VERIFY_FILE:
+            std::cout << "\nVERIFY_FILE\n" << std::endl;
+            int verifyFile();
+        default:
+        // ignora
+        break;
+    }
+
+}
+/*
+void switchThermalProtocol(){
+    switch(gsPacket.operation){
+        case INDEFINIDO:
+            break;
+        case INDEFINIDO:
+            break;
+        default:
+        // ignora
+        break;
+    }
+
+}*/
