@@ -169,7 +169,7 @@ void switchStatusProtocol(){
             break;
         case VERIFY_FILE:
             std::cout << "\nVERIFY_FILE\n" << std::endl;
-            int verifyFile();
+            verifyFile();
         default:
         // ignora
         break;

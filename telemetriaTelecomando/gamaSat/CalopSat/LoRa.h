@@ -1,8 +1,11 @@
+#pragma once
+
+/* Compatibilidade _Bool para quando incluído em C++ */
 #ifdef __cplusplus
-extern "C" {
     #ifndef _Bool
         #define _Bool bool
     #endif
+    extern "C" {
 #endif
 
 
