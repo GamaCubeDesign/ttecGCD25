@@ -107,19 +107,10 @@ void switchHealthProtocol() {
         break;
     }
 }
-/*
-void switchAISProtocol(){
-    switch(gsPacket.operation){
-        case INDEFINIDO:
-            break;
-        case INDEFINIDO:
-            break;
-        default:
-        // ignora
-        break;
-    }
 
-}*/
+void switchAISProtocol(){
+    
+}
 
 void switchMECProtocol(){
     switch(gsPacket.operation){
@@ -131,32 +122,14 @@ void switchMECProtocol(){
     }
 
 }
-/*
+
 void switchImagingProtocol(){
-    switch(gsPacket.operation){
-        case INDEFINIDO:
-            break;
-        case INDEFINIDO:
-            break;
-        default:
-        // ignora
-        break;
-    }
 
-}*/
-/*
+}
+
 void switchControlProtocol(){
-    switch(gsPacket.operation){
-        case INDEFINIDO:
-            break;
-        case INDEFINIDO:
-            break;
-        default:
-        // ignora
-        break;
-    }
 
-}*/
+}
 
 void switchStatusProtocol(){
     switch(gsPacket.operation){
@@ -179,16 +152,7 @@ void switchStatusProtocol(){
     }
 
 }
-/*
-void switchThermalProtocol(){
-    switch(gsPacket.operation){
-        case INDEFINIDO:
-            break;
-        case INDEFINIDO:
-            break;
-        default:
-        // ignora
-        break;
-    }
 
-}*/
+void switchThermalProtocol(){
+
+}
