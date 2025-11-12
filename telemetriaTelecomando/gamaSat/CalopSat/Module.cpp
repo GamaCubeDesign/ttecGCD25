@@ -170,6 +170,9 @@ void switchStatusProtocol(){
         case VERIFY_FILE:
             std::cout << "\nVERIFY_FILE\n" << std::endl;
             verifyFile();
+        case SHUT_DOWN_SYSTEM:
+            std::cout << "\nSHUT DOWN SYSTEM\n" << std::endl;
+            ShutDownSystem();
         default:
         // ignora
         break;

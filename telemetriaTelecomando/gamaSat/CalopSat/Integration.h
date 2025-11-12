@@ -35,6 +35,7 @@ void parseImaging();
 void sendHealthData();
 void SendImagingData();
 int verifyFile();
+void RemoveFile();
 void generateHealthData();
 
 extern fila* HealthFIFO;
@@ -45,11 +46,19 @@ extern int HealthDataCounter;
 extern int ImagingDataCounter;
 extern int ThermalControlDataCounter;
 
+extern const char *HealthFil;
+extern const char *ImagingFile;
+extern const char *ThermalControlFile;
+extern const char *AISFile;
+
+extern bool run;
+
 fila* CreateFIFO();
 fila* Enqueue(fila* f, healthData x);
 int Dequeue(fila* f, healthData* y);
+void DestroyFIFO(fila *f);
 void ShowFIFO(fila* f);
 
 void initSubsystems();
-
+void ShutDownSystem();
 #endif

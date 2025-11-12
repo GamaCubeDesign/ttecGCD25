@@ -13,9 +13,6 @@
 using namespace std;
 
 
-
-bool run = false;
-
 void loop(){
     updateRFComm();
 }
@@ -40,7 +37,9 @@ int main(int argc, char *argv[]){
     while(run){
         loop();
     }
+
+    std::cout << "\nLoop terminated.\n";
+    std::cout << "\nBye bye!\n";
     return 0;
 
-    
 }

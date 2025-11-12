@@ -1,6 +1,5 @@
 #include "Integration.h"
 #include "CommunicationProtocol.h"
-
 #include "Moden.h"
 
 #include <stdio.h>
@@ -9,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
+
 using json = nlohmann::json;
 
 
@@ -20,8 +20,15 @@ int HealthDataCounter = 0;
 int ImagingDataCounter = 0;
 int ThermalControlDataCounter = 0;
 
+bool run = false;
+
 healthData health;
 imagingData imaging;
+
+const char *HealthFile = "HealthFile.json";
+const char *ImagingFile = "ImagingFile.json";
+const char *ThermalControlFile = "ThermalControlFile.json";
+const char *AISFile = "AISFile.json";
 
 fila* CreateFIFO() {
     fila* f = (fila*) malloc(sizeof(fila));
@@ -49,6 +56,20 @@ int Dequeue(fila* f, healthData* y) {
     return 0; // sucesso
 }
 
+void DestroyFIFO(fila *f){
+    fila *atual = f -> prox;
+    fila *prox;
+
+    while(atual != f){
+        prox = atual -> prox;
+        free(atual);
+        atual = prox;
+    }
+    free(f);
+}
+
+
+
 void initSubsystems(){
     HealthFIFO = CreateFIFO();
     ImagingFIFO = CreateFIFO();
@@ -67,6 +88,17 @@ void initSubsystems(){
     std::cout << "\nThermal control data FIFO: \n" << std::endl;
     ShowFIFO(ThermalControlFIFO);
 }
+
+void ShutDownSystem(){
+    run = false;
+    std::cout << "\nShutting down the system...\n" << std::endl;
+    std::cout <<"\ndestroying all the FIFOs...\n" << std::endl;
+    DestroyFIFO(HealthFIFO);
+    DestroyFIFO(ImagingFIFO);
+    DestroyFIFO(ThermalControlFIFO);
+
+}
+
 
 void parseHealth(){
     std::ifstream file("sensor_data.json");
@@ -137,19 +169,21 @@ void parse2Health(){
 }
 
 void sendHealthData(){
-    tx_send((uint8_t*)&health, health.length);
+    std::cout << "\nEnviando a quantidade de pacotes disponíveis.\n" << std::endl;
+
+    //tx_send((uint8_t*)&health, health.length);
     std::cout << "\nHealth data sent.\n" << std::endl;
 
 }
 
 
 void parseImaging(){
-    imaging.length = sizeof(imaging);
+    //imaging.length = sizeof(imaging);
 }
 
 
 void SendImagingData(){
-    tx_send((uint8_t*)&imaging, imaging.length);
+    //tx_send((uint8_t*)&imaging, imaging.length);
 }
 
 int verifyFile(){
@@ -167,6 +201,13 @@ int verifyFile(){
     }
 }
 
+void RemoveFile(const char *filename){
+    if(remove(filename) == 0){
+        std::cout << "File deleted successfully.\n";
+    } else {
+        std::cout << "Error deleting the file.\n";
+    }
+}
 void generateHealthData(){
     //Falta adicionar a execução do código de OBC para gerar o .json
     
@@ -174,14 +215,18 @@ void generateHealthData(){
         parseHealth();
         HealthFIFO = Enqueue(HealthFIFO, health);
         HealthDataCounter++;
-        sendHealthData();
+        //sendHealthData();
     } else {
         std::cout << "Health data file not found." << std::endl;
     }
 }
 
 void ShowFIFO(fila* f) {
-    if (!f || f->prox == f) {
+    if(!f){
+        std::cout << "\nFIFO not initialized!\n" << std::endl;
+        return;
+    }
+    if (f->prox == f) {
         std::cout << "Empty FIFO!" << std::endl;
         std::cout << "Only the head node allocated." << std::endl;
         std::cout << "               _____________________ " << std::endl;
@@ -234,21 +279,22 @@ void ShowFIFO(fila* f) {
 
 /*
 int main(){
-    healthData removed;
+    system("./test");
+    std::cout << "\nFunciona!" << std::endl;
+
+    HealthFIFO = CreateFIFO();
+    std::cout << "  Nós em HealthFifo: " << HealthDataCounter << "" << std::endl;
+
+    ShowFIFO(HealthFIFO);
     generateHealthData();
-    fila* f = criaFila();
+    std::cout << "  Nós em HealthFifo: " << HealthDataCounter << "" << std::endl;
+    ShowFIFO(HealthFIFO);
 
-    mostraFIFO(f);                  
-    f = enfileira(f, health);
+    DestroyFIFO(HealthFIFO);
+    HealthFIFO = NULL;
     
-    parse2Health();
-    f = enfileira(f, health);
+    ShowFIFO(HealthFIFO);
 
-    mostraFIFO(f);                  
-
-    desinfileira(f, &removed);
-
-    mostraFIFO(f);                  
-    free(f);
     return 0;
-}*/
+}
+*/

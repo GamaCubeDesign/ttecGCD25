@@ -20,11 +20,12 @@ enum Operation : uint8_t {
     //status data
     INITCOMM = 2,
     VERIFY_FILE = 3,
+    SHUT_DOWN_SYSTEM = 4,
 
     //Mechanical control
-    OPEN_ANTENNAS = 4,
+    OPEN_ANTENNAS = 5,
 
-    INDEFINIDO = 5,
+    INDEFINIDO = 6,
 };
 
 
@@ -39,7 +40,14 @@ struct GSPacket{
     Protocol protocol;
     Operation operation;
 };
+struct HealthStatus{
+    uint8_t length;
+    Protocol protocol;
+    Operation operation;
+    uint8_t numberOfPackages;
+};
 
 extern SatPacket satPacket;
 extern GSPacket gsPacket;
+extern HealthStatus hStatus;
 #endif
