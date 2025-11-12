@@ -1,4 +1,5 @@
 #include <pigpio.h>
+#include <unistd.h>
 
 #include "LoRa.h"
 
