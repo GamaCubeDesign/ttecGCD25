@@ -10,11 +10,22 @@ enum Protocol : uint8_t {
     IMAGING_PROTOCOL = 3,
     CONTROL_PROTOCOL = 4,
     TERM_PROTOCOL = 5,
+    STATUS_PROTOCOL = 6,
+
 };
 
 enum Operation : uint8_t {
+    //health data
     GENERATE_HEALTH_DATA = 0,
     RESEND_HEALTH_DATA = 1,
+
+    //status data
+    INITCOMM = 2,
+    VERIFY_FILE = 3,
+    SHUT_DOWN_SYSTEM = 4,
+
+    //Mechanical control
+    OPEN_ANTENNAS = 5,
 };
 
 
@@ -43,7 +54,10 @@ struct healthData{
     uint8_t length;
 };
 
+extern GSPacket packet;
+extern SatPacket resposta;
 void sendPacket(Protocol protocol, Operation operation);
-
+void onReceive();
+bool receivePacket(SatPacket *packet, unsigned long timeout_ms);
 
 #endif
