@@ -39,6 +39,7 @@ int main(int argc, char *argv[]){
     }
 
     std::cout << "\nLoop terminated.\n";
+    modemFinish();
     std::cout << "\nBye bye!\n";
     return 0;
 

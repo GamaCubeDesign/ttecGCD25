@@ -20,6 +20,7 @@
  extern const uint8_t N_status;
  extern const uint8_t N_imaging;
  void sendSatPacket();
+ void sendHealthStatus();
  void updateRFComm();
  void onReceive();
  void switchHealthProtocol();

@@ -12,6 +12,8 @@ const unsigned long int communication_timeout_limit = 1000;
 
 SatPacket satPacket;
 GSPacket gsPacket;
+HealthStatus hStatus;
+
 uint8_t rx_pointer = 0;
 
 void sendSatPacket() {
@@ -20,6 +22,12 @@ void sendSatPacket() {
     std::cout << "Operation: " << satPacket.operation << "\n";
 }
 
+void sendHealthStatus() {
+    tx_send((uint8_t*)&hStatus, hStatus.length);
+    std::cout << "Protocol: " << hStatus.protocol << "\n";
+    std::cout << "Operation: " << hStatus.operation << "\n";
+    std::cout << "Number of Packages: " << (int)hStatus.numberOfPackages << "\n";
+}
 
 void updateRFComm() {
     std::cout << "\n Waiting for packet. \n";
@@ -97,6 +105,11 @@ void switchHealthProtocol() {
         case GENERATE_HEALTH_DATA:
             std::cout << "GENERATE_HEALTH_DATA" << std::endl;
             generateHealthData();
+            hStatus.length = sizeof(HealthStatus);
+            hStatus.protocol = HEALTH_PROTOCOL;
+            hStatus.operation = GENERATE_HEALTH_DATA;
+            hStatus.numberOfPackages = HealthDataCounter;
+            sendHealthStatus();
             break;
 
         case RESEND_HEALTH_DATA:
@@ -118,7 +131,7 @@ void switchMECProtocol(){
             break;
         default:
         // ignora
-        break;
+            break;
     }
 
 }
@@ -143,9 +156,11 @@ void switchStatusProtocol(){
         case VERIFY_FILE:
             std::cout << "\nVERIFY_FILE\n" << std::endl;
             verifyFile();
+            break;
         case SHUT_DOWN_SYSTEM:
             std::cout << "\nSHUT DOWN SYSTEM\n" << std::endl;
             ShutDownSystem();
+            break;
         default:
         // ignora
         break;
@@ -154,5 +169,17 @@ void switchStatusProtocol(){
 }
 
 void switchThermalProtocol(){
-
+    switch(gsPacket.operation){
+        case ACTIVATE_THERMAL_CONTROL:
+            std::cout << "\nACTIVATE THERMAL CONTROL\n" << std::endl;
+            activateThermalControl();
+            break;
+        case DEACTIVATE_THERMAL_CONTROL:
+            std::cout << "\nDEACTIVATE THERMAL CONTROL\n" << std::endl;
+            deactivateThermalControl();
+            break;
+        default:
+        // ignora
+        break;
+    }
 }

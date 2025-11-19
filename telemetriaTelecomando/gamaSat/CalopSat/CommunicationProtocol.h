@@ -25,7 +25,10 @@ enum Operation : uint8_t {
     //Mechanical control
     OPEN_ANTENNAS = 5,
 
-    INDEFINIDO = 6,
+    //Termal control
+    ACTIVATE_THERMAL_CONTROL = 6,
+    DEACTIVATE_THERMAL_CONTROL = 7,
+
 };
 
 
@@ -40,6 +43,7 @@ struct GSPacket{
     Protocol protocol;
     Operation operation;
 };
+
 struct HealthStatus{
     uint8_t length;
     Protocol protocol;

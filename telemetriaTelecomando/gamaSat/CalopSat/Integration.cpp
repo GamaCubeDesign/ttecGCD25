@@ -9,6 +9,10 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <signal.h>
+
 using json = nlohmann::json;
 
 
@@ -24,6 +28,7 @@ bool run = false;
 
 healthData health;
 imagingData imaging;
+thermalControlData thermalControlD;
 
 const char *HealthFile = "HealthFile.json";
 const char *ImagingFile = "ImagingFile.json";
@@ -187,9 +192,11 @@ void SendImagingData(){
 }
 
 int verifyFile(){
-    std::string fileName = "sensor_data.json";
+    std::string HFileName = "sensor_data.json";
+    std::string IFileName = "imaging_data.json";
+    std::string TFileName = "thermalControl_data.json";
 
-    FILE *file = fopen(fileName.c_str(), "r"); 
+    FILE *file = fopen(HFileName.c_str(), "r"); 
 
     if (file != NULL) {
         std::cout << "The file exists\n\n";
@@ -215,11 +222,49 @@ void generateHealthData(){
         parseHealth();
         HealthFIFO = Enqueue(HealthFIFO, health);
         HealthDataCounter++;
-        //sendHealthData();
+        std::cout << "Pacote gerado e enfileirado." << std::endl;
+
     } else {
         std::cout << "Health data file not found." << std::endl;
     }
 }
+
+
+pid_t thermal_pid = -1;  // PID global do processo filho
+
+
+void activateThermalControl(){
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        // Processo filho -> executa o outro programa
+        execl("./controletermico.o", "controletermico.o", NULL);
+        perror("Erro ao executar thermal_program");
+        exit(1); // garante que o filho não continue no pai
+    }
+    else if (pid > 0) {
+        thermal_pid = pid; // <--- salva o PID do filho
+        printf("Controle térmico ativado (processo separado iniciado) PID=%d\n", thermal_pid);
+    }
+    else {
+        perror("Erro no fork");
+    }
+}
+
+
+void deactivateThermalControl(){
+    if (thermal_pid > 0) {
+        if (kill(thermal_pid, SIGKILL) == 0) {
+            printf("Thermal control encerrado (PID %d)\n", thermal_pid);
+        } else {
+            perror("Erro ao encerrar processo");
+        }
+        thermal_pid = -1;
+    } else {
+        printf("Nenhum processo thermal está rodando.\n");
+    }
+}
+
 
 void ShowFIFO(fila* f) {
     if(!f){
@@ -277,24 +322,18 @@ void ShowFIFO(fila* f) {
 
 
 
-/*
+
 int main(){
-    system("./test");
-    std::cout << "\nFunciona!" << std::endl;
 
-    HealthFIFO = CreateFIFO();
-    std::cout << "  Nós em HealthFifo: " << HealthDataCounter << "" << std::endl;
+    activateThermalControl();
+    int i = 0;
 
-    ShowFIFO(HealthFIFO);
-    generateHealthData();
-    std::cout << "  Nós em HealthFifo: " << HealthDataCounter << "" << std::endl;
-    ShowFIFO(HealthFIFO);
+    for (int i = 0; i <= 50; i++) {
+    printf("[principal] Contador: %d\n", i);
+    fflush(stdout);
+    sleep(1);
+    }
 
-    DestroyFIFO(HealthFIFO);
-    HealthFIFO = NULL;
-    
-    ShowFIFO(HealthFIFO);
-
+    deactivateThermalControl();
     return 0;
 }
-*/

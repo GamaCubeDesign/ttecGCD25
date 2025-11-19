@@ -19,6 +19,14 @@ struct healthData {
 
 extern healthData health;
 
+struct thermalControlData {
+    float batteryTemperature1;
+    float batteryTemperature2;
+    float temperatureOut;
+    uint8_t length;
+};
+
+extern thermalControlData thermalControlD;
 
 struct imagingData {
     uint8_t length;
@@ -61,4 +69,8 @@ void ShowFIFO(fila* f);
 
 void initSubsystems();
 void ShutDownSystem();
+
+void activateThermalControl();
+void deactivateThermalControl();
+
 #endif
