@@ -28,6 +28,13 @@ struct thermalControlData {
 
 extern thermalControlData thermalControlD;
 
+struct controlData{
+    uint8_t length;
+};
+
+extern controlData controlD;
+
+
 struct imagingData {
     uint8_t length;
 };
@@ -38,10 +45,15 @@ typedef struct celula {
 } fila;
 
 void parseHealth();
-void parse2Health();
 void parseImaging();
+void parseControleTermico();
+void parseControle();
+
 void sendHealthData();
 void SendImagingData();
+void sendThermalControlData();
+void sendControlData();
+
 int verifyFile();
 void RemoveFile();
 void generateHealthData();
@@ -57,6 +69,7 @@ extern int ThermalControlDataCounter;
 extern const char *HealthFil;
 extern const char *ImagingFile;
 extern const char *ThermalControlFile;
+extern const char *ControlFile;
 extern const char *AISFile;
 
 extern bool run;
