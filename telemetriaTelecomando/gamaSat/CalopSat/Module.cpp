@@ -13,7 +13,7 @@ const unsigned long int communication_timeout_limit = 1000;
 SatPacket satPacket;
 GSPacket gsPacket;
 HealthStatus hStatus;
-
+control controlD;
 uint8_t rx_pointer = 0;
 
 void sendSatPacket() {
@@ -141,7 +141,23 @@ void switchImagingProtocol(){
 }
 
 void switchControlProtocol(){
-
+    switch(gsPacket.operation){
+        case SOLAR_VECTOR:
+            std::cout << "\nSOLAR_VECTOR\n" << std::endl;
+            break;
+        case TWO_VECTORS:
+            std::cout << "\nTWO_VECTORS\n" << std::endl;
+            break;
+        case SUN_POINTING:
+            std::cout << "\nSUN_POINTING\n" << std::endl;
+            break;
+        case STABILIZATION:
+            std::cout << "\nSTABILIZATION\n" << std::endl;
+            break;
+        default:
+        // ignora
+        break;
+    }
 }
 
 void switchStatusProtocol(){

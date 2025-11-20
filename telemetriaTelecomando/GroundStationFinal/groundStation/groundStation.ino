@@ -59,15 +59,12 @@ void loop() {
 
   menu();
 
-  // Espera até que um comando seja digitado na Serial
   while (!Serial.available()) {
-    // pode colocar um pequeno delay para não travar o processador
     delay(10);
   }
 
-  // Quando chegar algo, lê a linha até o ENTER
   comand = Serial.readStringUntil('\n');
-  comand.trim(); // remove espaços e quebras de linha extras
+  comand.trim(); 
 
   if (comand == "ghdata") {
     Serial.print("Request for health data: \n");
@@ -93,6 +90,20 @@ void loop() {
   }
   else if (comand == "vinfo") {
     //sendPacket(STATUS_PROTOCOL, VERIFY_INFO);
+  }
+  
+  //   CONTROLE
+  else if (comand == "solarvector") {
+    sendPacket(CONTROL_PROTOCOL, SOLAR_VECTOR);
+  }
+  else if (comand == "2vectors") {
+    sendVectors();
+  }
+  else if (comand == "sunpointing") {
+    sendPacket(CONTROL_PROTOCOL, SUN_POINTING);
+  }
+  else if (comand == "stabili") {
+    sendPacket(CONTROL_PROTOCOL, STABILIZATION);
   }
   else {
     Serial.println("Error: nonexistent command.");

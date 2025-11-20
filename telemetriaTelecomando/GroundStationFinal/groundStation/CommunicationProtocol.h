@@ -26,6 +26,16 @@ enum Operation : uint8_t {
 
     //Mechanical control
     OPEN_ANTENNAS = 5,
+
+    //Termal control
+    ACTIVATE_THERMAL_CONTROL = 6,
+    DEACTIVATE_THERMAL_CONTROL = 7,
+
+    //Control
+    SOLAR_VECTOR = 8,
+    TWO_VECTORS = 9,
+    SUN_POINTING = 10,
+    STABILIZATION = 11,
 };
 
 
@@ -39,6 +49,17 @@ struct GSPacket{
     uint8_t length;
     Protocol protocol;
     Operation operation;
+    int vector1;
+    int vector2;
+};
+
+struct control{
+    uint8_t length;
+    Protocol protocol;
+    Operation operation;
+    int vector1;
+    int vector2;
+    int solarVector;   
 };
 
 struct healthData{

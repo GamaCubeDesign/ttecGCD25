@@ -3,12 +3,14 @@
 
 GSPacket packet;
 SatPacket resposta;
-
+control controlPacket;
 void sendPacket(Protocol protocol, Operation operation) {
 
     packet.length = sizeof(GSPacket);
     packet.protocol = protocol;
     packet.operation = operation;
+    packet.vector1 = 0;
+    packet.vector2 = 0;
     
     Serial.print("}-->\n\n");
 
@@ -44,6 +46,57 @@ void sendPacket(Protocol protocol, Operation operation) {
     return;
 }
 
+void sendVectors() {
+    packet.length = sizeof(packet);
+    packet.protocol = CONTROL_PROTOCOL;
+    packet.operation = TWO_VECTORS;
+    
+    
+    
+    Serial.print("Digite o número do vetor1: \n\n");
+    while (Serial.available() == 0) {}           
+    int vetor1 = Serial.parseInt();
+    
+    Serial.print("Digite o número do vetor2: \n\n");
+    while (Serial.available() == 0) {}            
+    int vetor2 = Serial.parseInt();
+    
+    packet.vector1 = vetor1;
+    packet.vector2 = vetor2;
+    
+    Serial.print("}-->\n\n");
+
+    Serial.print("PACKAGE GENERATED: \n\n");
+
+    Serial.print("SIZE: ");
+    Serial.println(packet.length);
+
+    Serial.print("PROTOCOL: ");
+    Serial.println(packet.protocol);
+
+    Serial.print("OPERATION: ");
+    Serial.println(packet.operation);
+
+    uint8_t *data = (uint8_t*)&packet;
+
+    Serial.print("Sending Packet: ");
+    Serial.print("{");
+    for (int i = 0; i < packet.length; i++) {
+        Serial.print((int)data[i]);
+        Serial.print(" ");
+    }
+    Serial.println("}");
+    
+
+    LoRa.beginPacket();
+    LoRa.write(data, packet.length);
+    LoRa.endPacket();
+
+    Serial.println("Package sent!\n");
+    Serial.print("}-->\n\n");
+
+    return;
+}
 bool receivePacket(SatPacket *packet, unsigned long timeout_ms) {
     unsigned long start = millis();
 
