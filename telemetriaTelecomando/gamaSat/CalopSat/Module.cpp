@@ -115,9 +115,11 @@ void switchHealthProtocol() {
 
         case RESEND_HEALTH_DATA:
             std::cout << "RESEND HDATA" << std::endl;
+            sleep(5);
             break;
         case CONFIRMATION_HEALTH_DATA:
             std::cout << "CHEGOU A CONFIRMACAO" << std::endl;
+            sleep(5);
             break;
         default:
         // ignora

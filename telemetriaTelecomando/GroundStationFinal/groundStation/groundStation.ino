@@ -72,6 +72,7 @@ void loop() {
     if (receiveHealthStatus(&Hstatus, 5000)) {  // timeout de 3 segundos
         Serial.println("resposta recebida!");
         onReceive();
+        delay(5000);
         sendPacket(HEALTH_PROTOCOL, CONFIRMATION_HEALTH_DATA);
 
     }
