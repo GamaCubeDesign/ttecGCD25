@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.12)
+project(ais_receiver)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Configurações para Raspberry Pi
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O2")
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(WIRINGPI REQUIRED wiringPi)
+
+# Buscar biblioteca JSON
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(NLOHMANN_JSON REQUIRED nlohmann_json)
+
+add_executable(ais_receiver
+    src/main.cpp
+    src/ais_receiver.cpp
+    src/ais_parser.cpp
+    src/nmea_parser.cpp
+    src/data_logger.cpp
+)
+
+target_link_libraries(ais_receiver 
+    ${WIRINGPI_LIBRARIES}
+    ${NLOHMANN_JSON_LIBRARIES}
+)
+
+target_include_directories(ais_receiver PRIVATE 
+    ${WIRINGPI_INCLUDE_DIRS}
+    ${NLOHMANN_JSON_INCLUDE_DIRS}
+)
