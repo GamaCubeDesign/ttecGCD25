@@ -34,7 +34,7 @@ void sendPacket(Protocol protocol, Operation operation) {
     Serial.print("OPERATION: ");
     Serial.println(packet.operation);
 
-    int *data = (int*)&packet;
+    uint8_t *data = (uint8_t*)&packet;
 
     Serial.print("Sending Packet: ");
     Serial.print("{");
@@ -64,14 +64,14 @@ void sendVectors() {
     
     Serial.print("Digite o número do vetor1: \n");
     while (Serial.available() == 0) {}           
-    int vetor1 = Serial.parseInt();
+    uint8_t vetor1 = Serial.parseInt();
 
     Serial.printf("Vetor 1: %d\n\n", vetor1);
     
     Serial.print("Digite o número do vetor2: \n");
     clearSerial();
     while (Serial.available() == 0) {}            
-    int vetor2 = Serial.parseInt();
+    uint8_t vetor2 = Serial.parseInt();
 
     Serial.printf("Vetor 2: %d\n\n", vetor2);
 
@@ -93,7 +93,7 @@ void sendVectors() {
     Serial.print("OPERATION: ");
     Serial.println(packet.operation);
 
-    int *data = (int*)&packet;
+    uint8_t *data = (uint8_t*)&packet;
 
     Serial.print("Sending Packet: ");
     Serial.print("{");
