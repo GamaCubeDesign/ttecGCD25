@@ -110,6 +110,7 @@ void switchHealthProtocol() {
             hStatus.operation = GENERATE_HEALTH_DATA;
             hStatus.numberOfPackages = HealthDataCounter;
             sendHealthStatus();
+            sleep(5);
             break;
 
         case RESEND_HEALTH_DATA:
@@ -144,6 +145,7 @@ void switchControlProtocol(){
     switch(gsPacket.operation){
         case SOLAR_VECTOR:
             std::cout << "\nSOLAR_VECTOR\n" << std::endl;
+            sleep(5);
             break;
         case TWO_VECTORS:
             std::cout << "\nTWO_VECTORS\n" << std::endl;
@@ -173,6 +175,7 @@ void switchStatusProtocol(){
             satPacket.protocol = STATUS_PROTOCOL;
             satPacket.operation = INITCOMM;
             sendSatPacket();
+            sleep(5);
             break;
         case VERIFY_FILE:
             std::cout << "\nVERIFY_FILE\n" << std::endl;
