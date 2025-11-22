@@ -119,6 +119,7 @@ void switchHealthProtocol() {
             break;
         case CONFIRMATION_HEALTH_DATA:
             std::cout << "CHEGOU A CONFIRMACAO" << std::endl;
+            sendHealthData();
             sleep(5);
             break;
         default:

@@ -67,16 +67,10 @@ struct control{
     uint8_t solarVector;   
 };
 
-struct healthData{
-    float voltage;
-    float current;
-    float power;
-    float shunt;
-    float temperature;
-    float pressure;
-    float altitude;
-    float temperatureD;
-    unsigned long int sd_memory_usage;
+struct healthData {
+    float batteryTemperature1;
+    float batteryTemperature2;
+    float temperatureOut;
     uint8_t length;
 };
 
@@ -87,7 +81,7 @@ struct HealthStatus{
     uint8_t numberOfPackages;
 };
 
-
+extern healthData health;
 extern HealthStatus Hstatus;
 extern GSPacket packet;
 extern SatPacket resposta;

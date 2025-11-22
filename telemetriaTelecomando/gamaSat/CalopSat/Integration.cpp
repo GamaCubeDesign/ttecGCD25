@@ -28,7 +28,6 @@ bool run = false;
 
 healthData health;
 imagingData imaging;
-thermalControlData thermalControlD;
 
 const char *HealthFile = "HealthFile.json";
 const char *ImagingFile = "ImagingFile.json";
@@ -107,50 +106,16 @@ void ShutDownSystem(){
 
 
 void parseHealth(){
-    std::ifstream file("sensor_data.json");
+    std::ifstream file("HealthData.json");
     json j;
     file >> j;
 
-    health.voltage = j["sensors"]["INA219"].value("voltage_V", 0.0f);
-    health.current = j["sensors"]["INA219"].value("current_mA", 0.0f);
-    health.power = j["sensors"]["INA219"].value("power_mW", 0.0f);
-    health.shunt = j["sensors"]["INA219"].value("shunt_voltage_mV", 0.0f);
-    
-    health.temperature = j["sensors"]["BMP180"].value("temperature_C", 0.0f);
-    health.pressure = j["sensors"]["BMP180"].value("pressure_hPa", 0.0f);
-    health.altitude = j["sensors"]["BMP180"].value("altitude_m", 0.0f);
-    
-    health.temperatureD = j["sensors"]["DS18B20"].value("temperature_C", 0.0f);
-
-    //alterar depois para pegar o valor real
-    health.sd_memory_usage = 100;
-
+    health.batteryTemperature1 = j["temperatures_c"][0].value("temp_c", 0.0f);
+    health.batteryTemperature2 = j["temperatures_c"][1].value("temp_c", 0.0f);
+    health.temperatureOut      = j["temperatures_c"][2].value("temp_c", 0.0f);
     health.length = sizeof(health);
-
-    std::cout << "Voltage INA219: " << health.voltage << " V\n";
-    std::cout << "Currente INA219: " << health.current << " mA\n";
-    std::cout << "Power INA219: " << health.power << " mW\n";
-    std::cout << "Shunt INA219: " << health.shunt << " mV\n";
-
-    std::cout << "Temperature BMP180: " << health.temperature << " °C\n";
-    std::cout << "Pressure BMP180: " << health.pressure << " hPa\n";
-    std::cout << "Altitude BMP180: " << health.altitude << " m\n";
-    
-    std::cout << "Temperature DS18B20: " << health.temperatureD << " °C\n";
-
-    std::cout << "Memory: " << health.sd_memory_usage << " mb\n";
 }
 
-void parseControleTermico(){
-    std::ifstream file("controleTermico.json");
-    json j;
-    file >> j;
-
-    thermalControlD.batteryTemperature1 = j["temperatures_c"][0].value("temp_c", 0.0f);
-    thermalControlD.batteryTemperature2 = j["temperatures_c"][1].value("temp_c", 0.0f);
-    thermalControlD.temperatureOut      = j["temperatures_c"][2].value("temp_c", 0.0f);
-    thermalControlD.length = sizeof(health);
-}
 
 void parseControle(){
     std::ifstream file("controle.json");
@@ -175,14 +140,22 @@ void parseImaging(){
 
 
 void sendHealthData(){
-    std::cout << "\nEnviando a quantidade de pacotes disponíveis.\n" << std::endl;
-    tx_send((uint8_t*)&health, health.length);
+    std::cout << "\nEnviando todos os pacotes.\n" << std::endl;
+    int i = 0;
+    for(i = 0; i < HealthDataCounter; i++){
+        healthData hd;
+        Dequeue(HealthFIFO, &hd);
+        tx_send((uint8_t*)&hd, hd.length);
+        std::cout << "Pacote " << i+1 << " enviado." << std::endl;
+        HealthDataCounter--;
+        sleep(1);
+    }
     std::cout << "\nHealth data sent.\n" << std::endl;
 }
 
 void sendThermalControlData(){
     std::cout << "\nEnviando os dados de controle térmico disponíveis.\n" << std::endl;
-    tx_send((uint8_t*)&thermalControlD, thermalControlD.length);
+    //tx_send((uint8_t*)&thermalControlD, thermalControlD.length);
     std::cout << "\nThermal control data sent.\n" << std::endl;
 }
 
@@ -290,7 +263,7 @@ void ShowFIFO(fila* f) {
 
         return;
     }
-
+/*
     fila* atual = f->prox;
     int i = 0;
 
@@ -323,7 +296,7 @@ void ShowFIFO(fila* f) {
     std::cout << "" << std::endl;
     std::cout << "" << std::endl;
 
-}
+}*/
 
 
 

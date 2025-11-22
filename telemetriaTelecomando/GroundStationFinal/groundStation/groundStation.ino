@@ -69,7 +69,7 @@ void loop() {
   if (comand == "ghdata") {
     Serial.print("Request for health data: \n");
     sendPacket(HEALTH_PROTOCOL, GENERATE_HEALTH_DATA);
-    if (receiveHealthStatus(&Hstatus, 5000)) {  // timeout de 3 segundos
+    if (receiveHealthStatus(&Hstatus, 7000)) {  // timeout de 3 segundos
         Serial.println("resposta recebida!");
         onReceive();
         delay(5000);

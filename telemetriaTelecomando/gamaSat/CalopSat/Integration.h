@@ -4,29 +4,16 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+
+
 struct healthData {
-    float voltage;
-    float current;
-    float power;
-    float shunt;
-    float temperature;
-    float pressure;
-    float altitude;
-    float temperatureD;
-    unsigned long int sd_memory_usage;
-    uint8_t length;
-};
-
-extern healthData health;
-
-struct thermalControlData {
     float batteryTemperature1;
     float batteryTemperature2;
     float temperatureOut;
     uint8_t length;
 };
+extern healthData health;
 
-extern thermalControlData thermalControlD;
 
 struct imagingData {
     uint8_t length;
@@ -39,7 +26,6 @@ typedef struct celula {
 
 void parseHealth();
 void parseImaging();
-void parseControleTermico();
 void parseControle();
 
 void sendHealthData();
