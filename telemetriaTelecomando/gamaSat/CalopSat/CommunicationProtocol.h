@@ -48,8 +48,8 @@ struct GSPacket{
     uint8_t length;
     Protocol protocol;
     Operation operation;
-    uint8_t vector1;
-    uint8_t vector2;
+    int vector1;
+    int vector2;
 };
 
 
