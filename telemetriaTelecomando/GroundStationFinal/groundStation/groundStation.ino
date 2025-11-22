@@ -97,7 +97,7 @@ void loop() {
     sendPacket(CONTROL_PROTOCOL, SOLAR_VECTOR);
   }
   else if (comand == "2vectors") {
-    sendPacket(CONTROL_PROTOCOL, TWO_VECTORS);
+    //sendPacket(CONTROL_PROTOCOL, TWO_VECTORS);
     sendVectors();
   }
   else if (comand == "sunpointing") {
