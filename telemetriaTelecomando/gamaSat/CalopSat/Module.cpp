@@ -113,7 +113,7 @@ void switchHealthProtocol() {
             break;
 
         case RESEND_HEALTH_DATA:
-            
+            std::cout << "RESEND HDATA" << std::endl;
             break;
         default:
         // ignora
