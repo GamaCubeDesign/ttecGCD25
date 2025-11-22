@@ -74,7 +74,7 @@ void loop() {
     if (receiveHealthStatus(&Hstatus, 7000)) {  // timeout de 3 segundos
         Serial.println("resposta recebida!");
         onReceive();
-        delay(5000);
+        delay(7000);
         qtdHealth = Hstatus.numberOfPackages;
         Serial.print(qtdHealth);
         sendPacket(HEALTH_PROTOCOL, CONFIRMATION_HEALTH_DATA);
@@ -116,6 +116,9 @@ void loop() {
   }
   else if (comand == "stabili") {
     sendPacket(CONTROL_PROTOCOL, STABILIZATION);
+  }
+  else if (comand == "down") {
+    sendPacket(STATUS_PROTOCOL, SHUT_DOWN_SYSTEM);
   }
   else {
     Serial.println("Error: nonexistent command.");

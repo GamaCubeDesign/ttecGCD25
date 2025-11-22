@@ -2,7 +2,6 @@
 #include "GroundStationComm.h"
 #include "CommunicationProtocol.h"
 
-
 GSPacket gspacket;
 
 
