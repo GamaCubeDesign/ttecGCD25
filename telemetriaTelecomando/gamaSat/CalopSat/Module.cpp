@@ -142,6 +142,9 @@ void switchImagingProtocol(){
 }
 
 void switchControlProtocol(){
+    int vetor1 = 0;
+    int vetor2 = 0;
+
     switch(gsPacket.operation){
         case SOLAR_VECTOR:
             std::cout << "\nSOLAR_VECTOR\n" << std::endl;
@@ -154,8 +157,8 @@ void switchControlProtocol(){
             std::cout << "Vetor 2: " << (int)gsPacket.vector2 << "\n";
             std::cout << "Vetor 2b: " << (int)gsPacket.vector2b << "\n";
 
-            int vetor1 = (gsPacket.vector1 << 8) | gsPacket.vector1b;
-            int vetor2 = (gsPacket.vector2 << 8) | gsPacket.vector2b;
+            vetor1 = (gsPacket.vector1 << 8) | gsPacket.vector1b;
+            vetor2 = (gsPacket.vector2 << 8) | gsPacket.vector2b;
 
 
             std::cout << "Vetor 1 completo: " << vetor1 << "\n";
