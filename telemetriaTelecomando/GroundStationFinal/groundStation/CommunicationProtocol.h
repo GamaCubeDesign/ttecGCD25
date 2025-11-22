@@ -49,8 +49,8 @@ struct GSPacket{
     uint8_t length;
     Protocol protocol;
     Operation operation;
-    int vector1;
-    int vector2;
+    uint8_t vector1;
+    uint8_t vector2;
 };
 
 struct control{
@@ -80,5 +80,7 @@ extern SatPacket resposta;
 void sendPacket(Protocol protocol, Operation operation);
 void onReceive();
 bool receivePacket(SatPacket *packet, unsigned long timeout_ms);
+void sendVectors();
+void clearSerial();
 
 #endif

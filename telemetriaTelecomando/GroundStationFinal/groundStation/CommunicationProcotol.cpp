@@ -4,6 +4,15 @@
 GSPacket packet;
 SatPacket resposta;
 control controlPacket;
+
+// Função para limpar o buffer
+void clearSerial() {
+    while (Serial.available() > 0) {
+        Serial.read();
+    }
+}
+
+
 void sendPacket(Protocol protocol, Operation operation) {
 
     packet.length = sizeof(GSPacket);
@@ -53,13 +62,20 @@ void sendVectors() {
     
     
     
-    Serial.print("Digite o número do vetor1: \n\n");
+    Serial.print("Digite o número do vetor1: \n");
     while (Serial.available() == 0) {}           
-    int vetor1 = Serial.parseInt();
+    uint8_t vetor1 = Serial.parseInt();
+
+    Serial.printf("Vetor 1: %d\n\n", vetor1);
     
-    Serial.print("Digite o número do vetor2: \n\n");
+    Serial.print("Digite o número do vetor2: \n");
+    clearSerial();
     while (Serial.available() == 0) {}            
-    int vetor2 = Serial.parseInt();
+    uint8_t vetor2 = Serial.parseInt();
+
+    Serial.printf("Vetor 2: %d\n\n", vetor2);
+
+
     
     packet.vector1 = vetor1;
     packet.vector2 = vetor2;
@@ -95,6 +111,7 @@ void sendVectors() {
     Serial.println("Package sent!\n");
     Serial.print("}-->\n\n");
 
+    clearSerial();
     return;
 }
 bool receivePacket(SatPacket *packet, unsigned long timeout_ms) {

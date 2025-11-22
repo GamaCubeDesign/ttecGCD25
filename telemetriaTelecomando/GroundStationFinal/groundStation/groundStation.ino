@@ -42,7 +42,7 @@ void setup() {
   }
   
   // Configura parâmetros
-  LoRa.explicitHeaderMode();       // Header explícito
+  //LoRa.explicitHeaderMode();       // Header explícito
   LoRa.setSpreadingFactor(12);     // SF12
   LoRa.setSignalBandwidth(62500);  // 62.5 kHz
   LoRa.setCodingRate4(8);          // CR4/8
