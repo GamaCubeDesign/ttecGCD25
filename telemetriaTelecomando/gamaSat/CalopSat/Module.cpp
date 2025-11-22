@@ -150,7 +150,15 @@ void switchControlProtocol(){
         case TWO_VECTORS:
             std::cout << "\nTWO_VECTORS\n" << std::endl;
             std::cout << "Vetor 1: " << (int)gsPacket.vector1 << "\n";
+            std::cout << "Vetor 1b: " << (int)gsPacket.vector1b << "\n";
             std::cout << "Vetor 2: " << (int)gsPacket.vector2 << "\n";
+            std::cout << "Vetor 2b: " << (int)gsPacket.vector2b << "\n";
+
+            int vetor1 = (int)gsPacket.vector1 + (int)gsPacket.vector1b;
+            int vetor2 = (int)gsPacket.vector2 + (int)gsPacket.vector2b;
+
+            std::cout << "Vetor 1 completo: " << vetor1 << "\n";
+            std::cout << "Vetor 2 completo: " << vetor2 << "\n";
             sleep(5);
             break;
         case SUN_POINTING:

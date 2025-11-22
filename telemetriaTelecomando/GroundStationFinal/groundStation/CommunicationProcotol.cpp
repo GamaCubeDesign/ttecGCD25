@@ -61,25 +61,44 @@ void sendVectors() {
     packet.operation = TWO_VECTORS;
     
     
-    
+    // VETOR 1
     Serial.print("Digite o número do vetor1: \n");
     while (Serial.available() == 0) {}           
     uint8_t vetor1 = Serial.parseInt();
 
     Serial.printf("Vetor 1: %d\n\n", vetor1);
     
-    Serial.print("Digite o número do vetor2: \n");
+
+    // VETOR 1B
     clearSerial();
+    Serial.print("Digite o número do vetor1b: \n");
+    while (Serial.available() == 0) {}           
+    uint8_t vetor1b = Serial.parseInt();
+
+    Serial.printf("Vetor 1b: %d\n\n", vetor1b);
+
+    // VETOR 2
+    clearSerial();
+    Serial.print("Digite o número do vetor2: \n");
     while (Serial.available() == 0) {}            
     uint8_t vetor2 = Serial.parseInt();
 
     Serial.printf("Vetor 2: %d\n\n", vetor2);
 
+    // VETOR 2b
+    clearSerial();
+    Serial.print("Digite o número do vetor2: \n");
+    while (Serial.available() == 0) {}            
+    uint8_t vetor2b = Serial.parseInt();
+
+    Serial.printf("Vetor 2b: %d\n\n", vetor2b);
 
     
     packet.vector1 = vetor1;
+    packet.vector1b = vetor1b;
     packet.vector2 = vetor2;
-    
+    packet.vector2b = vetor2b;
+
     Serial.print("}-->\n\n");
 
     Serial.print("PACKAGE GENERATED: \n\n");
