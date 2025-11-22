@@ -2,7 +2,7 @@
 #define COMMUNICATION_PROTOCOL_H
 #include <cstdint>  
 
-enum Protocol : uint8_t {
+enum Protocol : int {
     HEALTH_PROTOCOL = 0,
     AIS_PROTOCOL = 1,
     MEC_PROTOCOL = 2,
@@ -12,7 +12,7 @@ enum Protocol : uint8_t {
     STATUS_PROTOCOL = 6,
 };
 
-enum Operation : uint8_t {
+enum Operation : int {
     //health data
     GENERATE_HEALTH_DATA = 0,
     RESEND_HEALTH_DATA = 1,

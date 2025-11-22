@@ -32,16 +32,16 @@ void sendHealthStatus() {
 void updateRFComm() {
     std::cout << "\n Waiting for packet. \n";
 
-    uint8_t b;
+    int b;
     if (modemAvailable()) {
         while (modemAvailable()) {
             b = modemRead();
-            ((uint8_t*)(&gsPacket))[rx_pointer++] = b; //transforma a struct em array de bytes e vai colocando cada byte no seu lugar.
+            ((int*)(&gsPacket))[rx_pointer++] = b; //transforma a struct em array de bytes e vai colocando cada byte no seu lugar.
 
             if (rx_pointer > 0 && rx_pointer == gsPacket.length) {
                 std::cout << "Packet received from the ground station: ";
                 for (int i = 0; i < gsPacket.length; i++) {
-                    std::cout << (int)((uint8_t*)&gsPacket)[i] << " ";
+                    std::cout << (int)((int*)&gsPacket)[i] << " ";
                 }
                 std::cout << std::endl;
                 onReceive();
