@@ -154,8 +154,9 @@ void switchControlProtocol(){
             std::cout << "Vetor 2: " << (int)gsPacket.vector2 << "\n";
             std::cout << "Vetor 2b: " << (int)gsPacket.vector2b << "\n";
 
-            int vetor1 = (int)gsPacket.vector1 + (int)gsPacket.vector1b;
-            int vetor2 = (int)gsPacket.vector2 + (int)gsPacket.vector2b;
+            int vetor1 = (gsPacket.vector1 << 8) | gsPacket.vector1b;
+            int vetor2 = (gsPacket.vector2 << 8) | gsPacket.vector2b;
+
 
             std::cout << "Vetor 1 completo: " << vetor1 << "\n";
             std::cout << "Vetor 2 completo: " << vetor2 << "\n";
