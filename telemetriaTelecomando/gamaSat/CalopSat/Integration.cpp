@@ -327,7 +327,7 @@ void ShowFIFO(fila* f) {
 
 
 
-
+/*
 int main(){
 
     activateThermalControl();
@@ -341,4 +341,4 @@ int main(){
 
     deactivateThermalControl();
     return 0;
-}
+}*/
