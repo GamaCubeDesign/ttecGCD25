@@ -5,6 +5,7 @@ GSPacket packet;
 SatPacket resposta;
 control controlPacket;
 HealthStatus Hstatus;
+healthData health;
 
 // Função para limpar o buffer
 void clearSerial() {
@@ -228,6 +229,53 @@ bool receiveHealthStatus(HealthStatus *Hstatus, unsigned long timeout_ms) {
 
     Serial.println("Timeout: no response received.\n");
     return false;
+}
+
+bool receiveHealthData(healthData *Hdata, unsigned long timeout_ms) {
+    unsigned long start = millis();
+
+    while (millis() - start < timeout_ms) {
+        int packetSize = LoRa.parsePacket();
+        if (packetSize == 0) continue; // Nenhum pacote ainda
+
+        Serial.println("\n<--{ HEALTH DATA PACKET RECEIVED }");
+
+        // 1. Verifica o tamanho do pacote
+        if (packetSize != sizeof(healthData)) {
+            Serial.println("Packet size mismatch!");
+            Serial.print("Expected: "); Serial.println(sizeof(healthData));
+            Serial.print("Received: "); Serial.println(packetSize);
+            while (LoRa.available()) LoRa.read(); // limpa buffer
+            return false;
+        }
+
+        // 2. Lê os bytes do pacote
+        uint8_t buffer[sizeof(healthData)];
+        int index = 0;
+        while (LoRa.available() && index < sizeof(healthData)) {
+            buffer[index++] = (uint8_t)LoRa.read();
+        }
+
+        // 3. Copia os bytes para a struct Hdata
+        memcpy(Hdata, buffer, sizeof(healthData));
+
+        // 4. Imprime o Conteúdo Decodificado
+        Serial.println("Decoded healthData Packet Content:");
+        Serial.print("  Battery Temp 1: "); Serial.print(Hdata->batteryTemperature1, 2); Serial.println(" °C");
+        Serial.print("  Battery Temp 2: "); Serial.print(Hdata->batteryTemperature2, 2); Serial.println(" °C");
+        Serial.print("  External Temp:  "); Serial.print(Hdata->temperatureOut, 2); Serial.println(" °C");
+        Serial.print("  Packet Length:  "); Serial.print(Hdata->length); Serial.println(" bytes");
+
+        Serial.print("RSSI: "); Serial.print(LoRa.packetRssi());
+        Serial.print(" | SNR: "); Serial.println(LoRa.packetSnr());
+        Serial.println("<--}\n");
+
+        // Retorna sucesso APÓS receber e processar UM pacote
+        return true; 
+    }
+
+    Serial.println("Timeout: no response received.\n");
+    return false; // Tempo esgotado sem receber o pacote
 }
 
 

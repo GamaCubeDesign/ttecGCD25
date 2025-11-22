@@ -89,6 +89,8 @@ void sendPacket(Protocol protocol, Operation operation);
 void onReceive();
 bool receivePacket(SatPacket *packet, unsigned long timeout_ms);
 bool receiveHealthStatus(HealthStatus *Hstatus, unsigned long timeout_ms);
+bool receiveHealthData(healthData *Hdata, unsigned long timeout_ms);
+
 void sendVectors();
 void clearSerial();
 

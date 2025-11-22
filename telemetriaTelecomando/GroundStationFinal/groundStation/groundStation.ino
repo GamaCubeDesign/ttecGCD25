@@ -19,6 +19,8 @@ bool ImagingFIFO = false;
 int HealthCells = 0;
 int ImagingCells = 0;
 
+int qtdHealth = 0;
+
 void setup() {
   Serial.begin(115200);
   while (!Serial);  
@@ -73,7 +75,12 @@ void loop() {
         Serial.println("resposta recebida!");
         onReceive();
         delay(5000);
+        qtdHealth = Hstatus.numberOfPackages;
+        Serial.print(qtdHealth);
         sendPacket(HEALTH_PROTOCOL, CONFIRMATION_HEALTH_DATA);
+        for(int i = 0; i < qtdHealth; i++){
+            receiveHealthData(&health, 7000);
+        }
 
     }
 

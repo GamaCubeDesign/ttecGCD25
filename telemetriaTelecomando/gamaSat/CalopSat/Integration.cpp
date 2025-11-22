@@ -147,7 +147,6 @@ void sendHealthData(){
         Dequeue(HealthFIFO, &hd);
         tx_send((uint8_t*)&hd, hd.length);
         std::cout << "Pacote " << i+1 << " enviado." << std::endl;
-        HealthDataCounter--;
         sleep(1);
     }
     std::cout << "\nHealth data sent.\n" << std::endl;
