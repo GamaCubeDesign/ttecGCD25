@@ -4,6 +4,7 @@
 GSPacket packet;
 SatPacket resposta;
 control controlPacket;
+HealthStatus Hstatus;
 
 // Função para limpar o buffer
 void clearSerial() {
@@ -177,6 +178,58 @@ bool receivePacket(SatPacket *packet, unsigned long timeout_ms) {
     Serial.println("Timeout: no response received.\n");
     return false;
 }
+
+bool receiveHealthStatus(HealthStatus *Hstatus, unsigned long timeout_ms) {
+    unsigned long start = millis();
+
+    while (millis() - start < timeout_ms) {
+        int packetSize = LoRa.parsePacket();
+        if (packetSize == 0) continue;  // Nenhum pacote ainda
+
+        Serial.println("\n<--{ HEALTH PACKET RECEIVED }");
+
+        // Verifica tamanho do pacote
+        if (packetSize != sizeof(HealthStatus)) {
+            Serial.println("Packet size mismatch!");
+            Serial.print("Expected: "); Serial.println(sizeof(HealthStatus));
+            Serial.print("Received: "); Serial.println(packetSize);
+            while (LoRa.available()) LoRa.read(); // limpa buffer
+            return false;
+        }
+
+        // Lê os bytes do pacote
+        uint8_t buffer[sizeof(HealthStatus)];
+        int index = 0;
+        while (LoRa.available() && index < sizeof(HealthStatus)) {
+            buffer[index++] = (uint8_t)LoRa.read();
+        }
+
+        // Copia os bytes para a struct Hstatus
+        memcpy(Hstatus, buffer, sizeof(HealthStatus));
+
+        // Imprime conteúdo decodificado
+        Serial.println("Decoded HealthStatus Packet Content:");
+        Serial.print("SIZE: "); Serial.println(Hstatus->length);
+        Serial.print("PROTOCOL: "); Serial.println(Hstatus->protocol);
+        Serial.print("OPERATION: "); Serial.println(Hstatus->operation);
+        Serial.print("NUMBER OF PACKAGES: "); Serial.println(Hstatus->numberOfPackages);
+
+        // Imprime bytes brutos
+        Serial.print("Packet Bytes: { ");
+        for (int i = 0; i < sizeof(HealthStatus); i++) {
+            Serial.print((int)buffer[i]);
+            Serial.print(" ");
+        }
+        Serial.println("}");
+        Serial.println("<--}\n");
+
+        return true;
+    }
+
+    Serial.println("Timeout: no response received.\n");
+    return false;
+}
+
 
 void onReceive() {
     Serial.println("\nProcessing received packet...");

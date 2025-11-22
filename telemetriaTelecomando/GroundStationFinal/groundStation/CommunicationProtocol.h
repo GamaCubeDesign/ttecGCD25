@@ -18,6 +18,7 @@ enum Operation : uint8_t {
     //health data
     GENERATE_HEALTH_DATA = 0,
     RESEND_HEALTH_DATA = 1,
+    CONFIRMATION_HEALTH_DATA = 12,
 
     //status data
     INITCOMM = 2,
@@ -79,11 +80,21 @@ struct healthData{
     uint8_t length;
 };
 
+struct HealthStatus{
+    uint8_t length;
+    Protocol protocol;
+    Operation operation;
+    uint8_t numberOfPackages;
+};
+
+
+extern HealthStatus Hstatus;
 extern GSPacket packet;
 extern SatPacket resposta;
 void sendPacket(Protocol protocol, Operation operation);
 void onReceive();
 bool receivePacket(SatPacket *packet, unsigned long timeout_ms);
+bool receiveHealthStatus(HealthStatus *Hstatus, unsigned long timeout_ms);
 void sendVectors();
 void clearSerial();
 

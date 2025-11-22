@@ -69,10 +69,13 @@ void loop() {
   if (comand == "ghdata") {
     Serial.print("Request for health data: \n");
     sendPacket(HEALTH_PROTOCOL, GENERATE_HEALTH_DATA);
-    if (receivePacket(&resposta, 3000)) {  // timeout de 3 segundos
+    if (receiveHealthStatus(&Hstatus, 5000)) {  // timeout de 3 segundos
         Serial.println("resposta recebida!");
         onReceive();
+        sendPacket(HEALTH_PROTOCOL, CONFIRMATION_HEALTH_DATA);
+
     }
+
   }
   else if (comand == "rhdata") {
     sendPacket(HEALTH_PROTOCOL, RESEND_HEALTH_DATA);

@@ -16,6 +16,7 @@ enum Operation : uint8_t {
     //health data
     GENERATE_HEALTH_DATA = 0,
     RESEND_HEALTH_DATA = 1,
+    CONFIRMATION_HEALTH_DATA = 12,
 
     //status data
     INITCOMM = 2,
