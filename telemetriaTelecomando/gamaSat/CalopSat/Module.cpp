@@ -178,6 +178,10 @@ void switchControlProtocol(){
         case STABILIZATION:
             std::cout << "\nSTABILIZATION\n" << std::endl;
             sleep(5);
+
+
+
+            
             break;
         default:
         // ignora

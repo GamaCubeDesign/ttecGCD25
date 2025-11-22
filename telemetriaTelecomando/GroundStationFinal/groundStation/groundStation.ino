@@ -73,7 +73,7 @@ void loop() {
     sendPacket(HEALTH_PROTOCOL, GENERATE_HEALTH_DATA);
     if (receiveHealthStatus(&Hstatus, 7000)) {  // timeout de 3 segundos
         Serial.println("resposta recebida!");
-        onReceive();
+        //onReceive();
         delay(7000);
         qtdHealth = Hstatus.numberOfPackages;
         Serial.print(qtdHealth);
@@ -111,7 +111,7 @@ void loop() {
     //sendPacket(CONTROL_PROTOCOL, TWO_VECTORS);
     sendVectors();
   }
-  else if (comand == "sunpointing") {
+  else if (comand == "sunp") {
     sendPacket(CONTROL_PROTOCOL, SUN_POINTING);
   }
   else if (comand == "stabili") {
