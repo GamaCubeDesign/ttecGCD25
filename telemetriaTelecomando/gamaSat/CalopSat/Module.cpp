@@ -144,11 +144,11 @@ void switchControlProtocol(){
     switch(gsPacket.operation){
         case SOLAR_VECTOR:
             std::cout << "\nSOLAR_VECTOR\n" << std::endl;
-            std::cout << "Vetor 1: " << gsPacket.vector1 << "\n";
-            std::cout << "Vetor 2: " << gsPacket.vector2 << "\n";
             break;
         case TWO_VECTORS:
             std::cout << "\nTWO_VECTORS\n" << std::endl;
+            std::cout << "Vetor 1: " << gsPacket.vector1 << "\n";
+            std::cout << "Vetor 2: " << gsPacket.vector2 << "\n";
             break;
         case SUN_POINTING:
             std::cout << "\nSUN_POINTING\n" << std::endl;
