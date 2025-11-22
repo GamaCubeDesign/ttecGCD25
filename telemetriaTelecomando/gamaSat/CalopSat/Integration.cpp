@@ -29,8 +29,6 @@ bool run = false;
 healthData health;
 imagingData imaging;
 thermalControlData thermalControlD;
-controlData controlD;
-
 
 const char *HealthFile = "HealthFile.json";
 const char *ImagingFile = "ImagingFile.json";

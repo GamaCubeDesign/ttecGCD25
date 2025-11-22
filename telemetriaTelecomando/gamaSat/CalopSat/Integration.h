@@ -28,13 +28,6 @@ struct thermalControlData {
 
 extern thermalControlData thermalControlD;
 
-struct controlData{
-    uint8_t length;
-};
-
-extern controlData controlD;
-
-
 struct imagingData {
     uint8_t length;
 };
