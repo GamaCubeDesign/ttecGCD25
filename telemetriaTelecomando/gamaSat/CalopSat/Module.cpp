@@ -4,6 +4,32 @@
 #include <iostream>
 
 
+//Controle
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
+
+#define I2C_ADDR 0x12
+
+int i2c_open() {
+    int fd = open("/dev/i2c-1", O_RDWR);
+    if (fd < 0) {
+        perror("Erro ao abrir /dev/i2c-1");
+        exit(1);
+    }
+
+    if (ioctl(fd, I2C_SLAVE, I2C_ADDR) < 0) {
+        perror("Erro ao configurar I2C_SLAVE");
+        exit(1);
+    }
+    return fd;
+}
+
+
 bool talking = false;
 
 
@@ -148,12 +174,25 @@ void switchImagingProtocol(){
 }
 
 void switchControlProtocol(){
-    int vetor1 = 0;
-    int vetor2 = 0;
+    uint16_t vetor1 = 0;
+    uint16_t vetor2 = 0;
 
     switch(gsPacket.operation){
         case SOLAR_VECTOR:
             std::cout << "\nSOLAR_VECTOR\n" << std::endl;
+            int fd = i2c_open();
+
+            // Enviar comando "1"
+            uint16_t cmd = '1';
+            write(fd, &cmd, 1);
+
+            // Receber inteiro
+            int result;
+            read(fd, &result, sizeof(int));
+
+            printf("Retorno do vetor solar: %d\n", result);
+
+            close(fd);
             sleep(5);
             break;
         case TWO_VECTORS:
@@ -163,25 +202,72 @@ void switchControlProtocol(){
             std::cout << "Vetor 2: " << (int)gsPacket.vector2 << "\n";
             std::cout << "Vetor 2b: " << (int)gsPacket.vector2b << "\n";
 
-            vetor1 = (int)gsPacket.vector1 + (int)gsPacket.vector1b;
-            vetor2 = (int)gsPacket.vector2 + (int)gsPacket.vector2b;
+            vetor1 = ((uint16_t)gsPacket.vector1b << 8) | gsPacket.vector1;
+            vetor2 = ((uint16_t)gsPacket.vector2b << 8) | gsPacket.vector2;
+
 
 
             std::cout << "Vetor 1 completo: " << vetor1 << "\n";
             std::cout << "Vetor 2 completo: " << vetor2 << "\n";
+
+
+            int fd = i2c_open();
+
+            //uint16_t a, b;
+
+            //printf("Digite o valor de A (0–65535): ");
+            //scanf("%hu", &a);
+
+            //printf("Digite o valor de B (0–65535): ");
+            //scanf("%hu", &b);
+
+            // Montar mensagem I2C
+            // Comando 2 + dois uint16 (5 bytes)
+            uint8_t buf[5];
+            buf[0] = '2';        // comando
+
+            buf[1] = vetor1 & 0xFF;
+            buf[2] = vetor1 >> 8;
+
+            buf[3] = vetor2 & 0xFF;
+            buf[4] = vetor2 >> 8;
+
+            // Envia comando + parâmetros
+            int w = write(fd, buf, 5);
+            if (w != 5) {
+                printf("Erro no envio I2C! Enviou %d bytes.\n", w);
+            }
+
+            close(fd);
+
             sleep(5);
             break;
         case SUN_POINTING:
             std::cout << "\nSUN_POINTING\n" << std::endl;
+            int fd = i2c_open();
+
+            uint16_t cmd = '3';
+            write(fd, &cmd, 1);
+
+            printf("Comando 3 enviado.\n");
+
+            close(fd);
+            
             sleep(5);
             break;
         case STABILIZATION:
             std::cout << "\nSTABILIZATION\n" << std::endl;
+
+            int fd = i2c_open();
+
+            uint16_t cmd = '4';
+            write(fd, &cmd, 1);
+
+            printf("Comando 4 enviado.\n");
+
+            close(fd);
+
             sleep(5);
-
-
-
-            
             break;
         default:
         // ignora
