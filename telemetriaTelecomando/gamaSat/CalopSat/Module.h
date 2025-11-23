@@ -30,4 +30,6 @@
  void switchThermalProtocol();
  void switchImagingProtocol();
  void switchMECProtocol();
+
+ int i2c_open();
  #endif
