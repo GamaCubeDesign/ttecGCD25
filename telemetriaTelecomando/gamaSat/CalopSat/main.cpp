@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
 
     std::cout << "\nEntering the loop...\n";
 
-    sleep(15);
+    sleep(5);
     
     run = true;
 
