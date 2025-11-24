@@ -5,7 +5,7 @@ CC = gcc
 
 # Opções de compilação
 CXXFLAGS = -Wall -O2 -std=c++17
-CFLAGS = -Wall -O2 -std=c11
+CFLAGS = -Wall -O2 -std=c11 -D_DEFAULT_SOURCE
 
 # Bibliotecas necessárias
 LIBS = -lpigpio -lpthread -lrt -lm
