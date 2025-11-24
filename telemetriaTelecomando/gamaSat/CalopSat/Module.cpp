@@ -253,7 +253,7 @@ void switchControlProtocol(){
             printf("Comando 4 enviado.\n");
 
             close(fd);
-            sleep(5);
+            sleep(10);
             break;
         }
 
