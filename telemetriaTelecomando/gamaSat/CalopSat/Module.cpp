@@ -136,17 +136,17 @@ void switchHealthProtocol() {
             hStatus.operation = GENERATE_HEALTH_DATA;
             hStatus.numberOfPackages = HealthDataCounter;
             sendHealthStatus();
-            sleep(5);
+            sleep(10);
             break;
 
         case RESEND_HEALTH_DATA:
             std::cout << "RESEND HDATA" << std::endl;
-            sleep(5);
+            sleep(10);
             break;
         case CONFIRMATION_HEALTH_DATA:
             std::cout << "CHEGOU A CONFIRMACAO" << std::endl;
             sendHealthData();
-            sleep(5);
+            sleep(10);
             break;
         default:
         // ignora
@@ -192,7 +192,7 @@ void switchControlProtocol(){
             printf("Retorno do vetor solar: %d\n", result);
 
             close(fd);
-            sleep(5);
+            sleep(10);
             break;
         }
 
@@ -225,7 +225,7 @@ void switchControlProtocol(){
             }
 
             close(fd);
-            sleep(5);
+            sleep(10);
             break;
         }
 
@@ -239,7 +239,7 @@ void switchControlProtocol(){
             printf("Comando 3 enviado.\n");
 
             close(fd);
-            sleep(5);
+            sleep(10);
             break;
         }
 
@@ -253,7 +253,7 @@ void switchControlProtocol(){
             printf("Comando 4 enviado.\n");
 
             close(fd);
-            sleep(5);
+            sleep(10);
             break;
         }
 
@@ -271,7 +271,7 @@ void switchStatusProtocol(){
             satPacket.protocol = STATUS_PROTOCOL;
             satPacket.operation = INITCOMM;
             sendSatPacket();
-            sleep(5);
+            sleep(10);
             break;
         case VERIFY_FILE:
             std::cout << "\nVERIFY_FILE\n" << std::endl;
