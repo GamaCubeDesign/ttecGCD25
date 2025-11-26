@@ -117,6 +117,15 @@ void loop() {
   else if (comand == "stabili") {
     sendPacket(CONTROL_PROTOCOL, STABILIZATION);
   }
+  else if (comand == "activatetc") {
+    sendPacket(TERM_PROTOCOL, ACTIVATE_THERMAL_CONTROL);
+  }
+  else if (comand == "deactivatetc") {
+    sendPacket(TERM_PROTOCOL, DEACTIVATE_THERMAL_CONTROL);
+  }
+  else if (comand == "ctdata") {
+    sendPacket(TERM_PROTOCOL, SEND_CT_DATA);
+  }
   else if (comand == "down") {
     sendPacket(STATUS_PROTOCOL, SHUT_DOWN_SYSTEM);
   }
