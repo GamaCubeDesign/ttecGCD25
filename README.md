@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/GamaCubeDesign/ttecGCD25/blob/main/interface/resources/gamaY.png?raw=true" alt="image alt" width="50%">
+  <img src="https://github.com/GamaCubeDesign/ttecGCD25/blob/main/gama.png?raw=true" alt="image alt" width="50%">
 </p>
 
 

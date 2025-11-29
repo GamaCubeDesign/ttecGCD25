@@ -117,6 +117,8 @@ void loop() {
   else if (comand == "stabili") {
     sendPacket(CONTROL_PROTOCOL, STABILIZATION);
   }
+
+  //   CONTROLE TERMICO 
   else if (comand == "activatetc") {
     sendPacket(TERM_PROTOCOL, ACTIVATE_THERMAL_CONTROL);
   }
@@ -126,6 +128,8 @@ void loop() {
   else if (comand == "ctdata") {
     sendPacket(TERM_PROTOCOL, SEND_CT_DATA);
   }
+
+  //   ENCERRA SISTEMA DE TTEC DO SATELITE
   else if (comand == "down") {
     sendPacket(STATUS_PROTOCOL, SHUT_DOWN_SYSTEM);
   }
